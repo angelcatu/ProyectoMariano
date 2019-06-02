@@ -31,22 +31,52 @@ public class ConsultarCursoAlumno extends javax.swing.JFrame {
 
     private void llenartabla() {
         TableModel modelo = jTable1.getModel();
-        for (int i = 0; i < listaCurso.size(); i++) {
-            for (int d = 0; d < listaAlumno.size(); d++) {
-                if (alumno.getCurso().equals(listaCurso.get(i).getNombre())) {
-                    curso = listaCurso.get(i);
-                    alumno = listaAlumno.get(d);
-                    modelo.setValueAt(curso.getId(), i, 0);
-                    modelo.setValueAt(curso.getNombre(), i, 1);
-                    modelo.setValueAt(curso.getSeccion(), i, 2);
-                    modelo.setValueAt(curso.getInicio(), i, 3);
-                    modelo.setValueAt(curso.getFin(), i, 4);
-                    modelo.setValueAt(curso.getHoraInicio(), i, 5);
-                    modelo.setValueAt(curso.getHoraFin(), i, 6);
-                    modelo.setValueAt(curso.getProfesor(), i, 7);
-                    modelo.setValueAt(alumno.getNota(), d, 8);
+
+        int fila = 0;
+        int iteradorCursos = 0;
+
+        for (int i = 0; i < listaAlumno.size(); i++) {
+
+            if (alumno.getCarne().equals(listaAlumno.get(i).getCarne())) {
+                System.out.println("Logueado ---> " + alumno.getCarne());
+                System.out.println("La comparación ---> " + listaAlumno.get(i).getCarne());
+                do {
+                    System.out.println("Arreglo: " + listaAlumno.get(i).getCurso()[0]);
+                    System.out.println("Arreglo: " + listaAlumno.get(i).getCurso()[1]);
+
+                    iteradorCursos++;
+                } while (iteradorCursos != listaAlumno.get(i).getTamañoCursos());
+
+                for (int k = 0; k < listaCurso.size(); k++) {
+
+                    /*
+                    
+                     if (listaAlumno.get(i).getCurso()[iteradorCursos].equals(listaCurso.get(k).getNombre())) {
+
+                     curso = listaCurso.get(k);
+                     modelo.setValueAt(curso.getId(), fila, 0);
+                     modelo.setValueAt(curso.getNombre(), fila, 1);
+                     modelo.setValueAt(curso.getSeccion(), fila, 2);
+                     modelo.setValueAt(curso.getInicio(), fila, 3);
+                     modelo.setValueAt(curso.getFin(), fila, 4);
+                     modelo.setValueAt(curso.getHoraInicio(), fila, 5);
+                     modelo.setValueAt(curso.getHoraFin(), fila, 6);
+                     modelo.setValueAt(curso.getProfesor(), fila, 7);
+                     modelo.setValueAt(listaAlumno.get(i).getNota(), fila, 8);
+
+                     fila++;
+
+                     iteradorCursos++;
+                     if (iteradorCursos == listaAlumno.get(i).getCurso().length) {
+                     break;
+                     }
+                     }
+                    
+                     */
                 }
+
             }
+
         }
     }
 

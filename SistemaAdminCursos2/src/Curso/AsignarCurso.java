@@ -35,7 +35,7 @@ public class AsignarCurso extends javax.swing.JFrame {
             modelo.setValueAt(a.getCarne(), i, 0);
             modelo.setValueAt(a.getNom(), i, 1);
             modelo.setValueAt(a.getApe(), i, 2);
-            modelo.setValueAt(a.getCurso(), i, 3);
+            modelo.setValueAt("", i, 3);
         }
     }
 
@@ -47,7 +47,7 @@ public class AsignarCurso extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        selecCurso = new javax.swing.JComboBox<>();
+        selecCurso = new javax.swing.JComboBox<String>();
         TextId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -77,6 +77,16 @@ public class AsignarCurso extends javax.swing.JFrame {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
@@ -86,7 +96,12 @@ public class AsignarCurso extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         selecCurso.setEditable(true);
-        selecCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selecCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selecCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selecCursoActionPerformed(evt);
+            }
+        });
 
         TextId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,15 +178,32 @@ public class AsignarCurso extends javax.swing.JFrame {
     private void BtnCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCursoActionPerformed
         String carne = TextId.getText();
 
+        String curso[] = new String[5];
+        
         alumno = buscarAlumno(carne);
         if (alumno != null) {
             TextId.setText(alumno.getCarne());
             if (alumno != null) {
-               
+                               
+                //Obtenemos la posición del arreglo de cursos
+                int numCursos = alumno.getTamañoCursos();                
                 
-                //alumno.setCurso(selecCurso.getSelectedItem().toString());
-                JOptionPane.showMessageDialog(this, "Curso asignado.");
-
+                //Se verifica si ya tiene asignado 5 cursos el estudiante
+                if(numCursos != 5){                                                            
+                    curso[numCursos] = new String(selecCurso.getSelectedItem().toString());     
+                    alumno.setCurso(curso);
+                    
+                    
+                    System.out.println("Usuario ---> " + alumno.getCarne());
+                    System.out.println("El valor agregado en: " + alumno.getTamañoCursos() + " es: " + alumno.getCurso()[alumno.getTamañoCursos()]);
+                    
+                    int actualizacion = numCursos + 1;
+                    alumno.setTamañoCursos(actualizacion);
+                    
+                    JOptionPane.showMessageDialog(null, "Curso asignado. Aún puedes asignarte " + (5-actualizacion) + " cursos más");
+                }else{
+                    JOptionPane.showMessageDialog(null, "No puedes asignarte más de 5 cursos");
+                }                                                                
             }
         } else {
             JOptionPane.showMessageDialog(this, "Alumno no existente.");
@@ -182,6 +214,10 @@ public class AsignarCurso extends javax.swing.JFrame {
     private void TextIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextIdActionPerformed
 
     }//GEN-LAST:event_TextIdActionPerformed
+
+    private void selecCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecCursoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selecCursoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

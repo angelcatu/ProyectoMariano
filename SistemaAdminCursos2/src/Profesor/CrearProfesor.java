@@ -377,7 +377,7 @@ public class CrearProfesor extends javax.swing.JFrame {
             }
             
         }catch(IOException e){
-            
+            JOptionPane.showMessageDialog(null, "No se pudo guardar el archivo correctamente");
         }
     }
 }

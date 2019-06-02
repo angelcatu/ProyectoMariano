@@ -170,7 +170,7 @@ public class ConsultaProf extends javax.swing.JFrame {
     private void llenartabla() {
        TableModel modelo = jTable1.getModel();
                                                  
-        for(int i = 0; i<20;i++){
+        for(int i = 0; i<lista.size();i++){
             Profesor p = lista.get(i);
             modelo.setValueAt(p.getUsuario(), i, 0);            
             modelo.setValueAt(p.getNombre(), i, 1);

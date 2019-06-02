@@ -11,6 +11,7 @@ public class Alumno {
     String pass;
     int nota;
     String curso[];
+    int tamañoCursos;
 
     public Alumno() {
     }
@@ -21,13 +22,20 @@ public class Alumno {
         this.ape = ape;
         this.pass = pass;
         this.nota = 0;
-        this.curso = null;
+        this.curso = new String[5];
+        this.tamañoCursos = 0;
     }
 
     public static int buscar(String user, String contracena){
         for (int i = 0; i < listaAlumno.size(); i++) {
             if (listaAlumno.get(i).getCarne().equals(user)&&listaAlumno.get(i).getPass().equals(contracena)) {
-                Util.alumno.setCarne(listaAlumno.get(i).getCarne());
+                                
+                Util.setAlumno(listaAlumno.get(i));
+                Util.getAlumno().setNom(listaAlumno.get(i).getNom());
+                Util.getAlumno().setCarne(listaAlumno.get(i).getCarne());                               
+                Util.getAlumno().setApe(listaAlumno.get(i).getApe());                               
+                                                               
+                
                 return i;
             }
         }
@@ -81,7 +89,15 @@ public class Alumno {
         this.curso = curso;
     }
 
+    public int getTamañoCursos() {
+        return tamañoCursos;
+    }
 
+    public void setTamañoCursos(int tamañoCursos) {
+        this.tamañoCursos = tamañoCursos;
+    }
+
+    
 
     @Override
     public String toString() {

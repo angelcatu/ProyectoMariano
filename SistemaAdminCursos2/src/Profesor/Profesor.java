@@ -22,8 +22,8 @@ public class Profesor {
     public static int buscar(String user, String contracena){
         for (int i = 0; i < lista.size(); i++) {
             if (lista.get(i).getUsuario().equals(user)&&lista.get(i).getPassword().equals(contracena)) {
-                
-                Util.profesor.setUsuario(lista.get(i).getUsuario());
+                                                
+                Util.profesor = lista.get(i);
                 
                 return i;
             }
