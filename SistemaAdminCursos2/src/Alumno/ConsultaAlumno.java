@@ -25,7 +25,7 @@ public class ConsultaAlumno extends javax.swing.JFrame {
     
       private void llenartabla() {
        TableModel modelo = jTable1.getModel();
-        for(int i = 0; i<20;i++){
+        for(int i = 0; i<listaAlumno.size();i++){
             Alumno a = listaAlumno.get(i);
             modelo.setValueAt(a.getCarne(), i, 0);
             modelo.setValueAt(a.getNom(), i, 1);

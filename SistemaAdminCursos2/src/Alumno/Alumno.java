@@ -1,5 +1,6 @@
 package Alumno;
 
+import Curso.Curso;
 import sistemaadmincursos2.Util;
 import static sistemaadmincursos2.Util.listaAlumno;
 
@@ -8,9 +9,8 @@ public class Alumno {
     String carne;
     String nom;
     String ape;
-    String pass;
-    int nota;
-    String curso[];
+    String pass;    
+    Curso curso[];
     int tamañoCursos;
 
     public Alumno() {
@@ -20,9 +20,8 @@ public class Alumno {
         this.carne = carne;
         this.nom = nom;
         this.ape = ape;
-        this.pass = pass;
-        this.nota = 0;
-        this.curso = new String[5];
+        this.pass = pass;        
+        this.curso = new Curso[5];
         this.tamañoCursos = 0;
     }
 
@@ -73,19 +72,12 @@ public class Alumno {
         this.pass = pass;
     }
 
-    public int getNota() {
-        return nota;
-    }
 
-    public void setNota(int nota) {
-        this.nota = nota;
-    }
-
-    public String[] getCurso() {
+    public Curso[] getCurso() {
         return curso;
     }
 
-    public void setCurso(String[] curso) {
+    public void setCurso(Curso[] curso) {
         this.curso = curso;
     }
 

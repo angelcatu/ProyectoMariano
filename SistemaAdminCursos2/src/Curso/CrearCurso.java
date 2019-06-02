@@ -275,17 +275,9 @@ public class CrearCurso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-        Curso curso = new Curso();
-        TextId.setText(String.valueOf(listaCurso.size()));
-        curso.setId(TextId.getText());
-        curso.setNombre(TextNombre.getText());
-        curso.setSeccion(TextSeccion.getText());
-        curso.setInicio(TextInicio.getText());
-        curso.setFin(TextFin.getText());
-        curso.setHoraInicio(TextHorarioInico.getText());
-        curso.setHoraFin(TextHorarioFin.getText());
-        curso.setProfesor(selecProfe.getSelectedItem().toString());
-        listaCurso.add(curso);
+                                        
+        listaCurso.add(new Curso(TextId.getText(), TextNombre.getText(), TextSeccion.getText(), TextInicio.getText(),
+        TextFin.getText(), TextHorarioInico.getText(), TextHorarioFin.getText(), selecProfe.getSelectedItem().toString()));
 
         TextId.setText("");
         TextNombre.setText("");
@@ -294,8 +286,7 @@ public class CrearCurso extends javax.swing.JFrame {
         TextFin.setText("");
         TextHorarioInico.setText("");
         TextHorarioFin.setText("");
-
-        System.out.println(curso.getId() + " " + curso.getNombre());
+        
         //selecProfe.addActionListener((ActionListener) lista);
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
@@ -618,16 +609,16 @@ public class CrearCurso extends javax.swing.JFrame {
 
     private void asignarCurso(Curso idCurso, Alumno alumno) {
         
-        String curso[] = new String[5];
+        Curso curso[] = new Curso[5];
         
          int numCursos = alumno.getTamañoCursos();                
                 
                 //Se verifica si ya tiene asignado 5 cursos el estudiante
                 if(numCursos != 5){                                                            
-                    curso[numCursos] = new String(idCurso.getNombre());     
-                    alumno.setCurso(curso);
-                    int actualizacion = numCursos + 1;
-                    alumno.setTamañoCursos(actualizacion);                    
+                   // curso[numCursos] = new Curso(idCurso.getNombre());     
+                   // alumno.setCurso(curso);
+                    //int actualizacion = numCursos + 1;
+                    //alumno.setTamañoCursos(actualizacion);                    
                 }                                          
     }
 }

@@ -1,4 +1,3 @@
-
 package Curso;
 
 import java.util.ArrayList;
@@ -9,12 +8,10 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 
-
 public class AsignarCurso extends javax.swing.JFrame {
 
     ArrayList<Alumno> listaAlumno = Util.listaAlumno;
     ArrayList<Curso> listaCurso = Util.listaCurso;
-    Alumno alumno = new Alumno();
 
     public AsignarCurso() {
         initComponents();
@@ -175,36 +172,44 @@ public class AsignarCurso extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    String curso[];
+
     private void BtnCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCursoActionPerformed
         String carne = TextId.getText();
 
-        String curso[] = new String[5];
-        
-        alumno = buscarAlumno(carne);
-        if (alumno != null) {
-            TextId.setText(alumno.getCarne());
-            if (alumno != null) {
-                               
-                //Obtenemos la posición del arreglo de cursos
-                int numCursos = alumno.getTamañoCursos();                
-                
-                //Se verifica si ya tiene asignado 5 cursos el estudiante
-                if(numCursos != 5){                                                            
-                    curso[numCursos] = new String(selecCurso.getSelectedItem().toString());     
-                    alumno.setCurso(curso);
-                    
-                    
-                    System.out.println("Usuario ---> " + alumno.getCarne());
-                    System.out.println("El valor agregado en: " + alumno.getTamañoCursos() + " es: " + alumno.getCurso()[alumno.getTamañoCursos()]);
-                    
-                    int actualizacion = numCursos + 1;
-                    alumno.setTamañoCursos(actualizacion);
-                    
-                    JOptionPane.showMessageDialog(null, "Curso asignado. Aún puedes asignarte " + (5-actualizacion) + " cursos más");
-                }else{
-                    JOptionPane.showMessageDialog(null, "No puedes asignarte más de 5 cursos");
-                }                                                                
+        int idAlumno = buscarAlumno(carne);
+
+        if (idAlumno != -1) {
+
+            //Obtenemos la posición del arreglo de cursos
+            int numCursos = listaAlumno.get(idAlumno).getTamañoCursos();
+
+            //Se verifica si ya tiene asignado 5 cursos el estudiante
+            if (numCursos != 5) {
+
+                for (int i = 0; i < listaCurso.size(); i++) {
+                    if (selecCurso.getSelectedItem().toString().equals(listaCurso.get(i).getNombre())) {
+                        Curso cursoActual = listaCurso.get(i);
+
+                        listaAlumno.get(idAlumno).getCurso()[numCursos] = new Curso(cursoActual.getId(), 
+                        cursoActual.getNombre(), cursoActual.getSeccion(), cursoActual.getInicio(),
+                        cursoActual.getFin(), cursoActual.getHoraInicio(),
+                        cursoActual.getHoraFin(), cursoActual.getProfesor());
+
+                        listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
+
+                        int actualizacion = numCursos + 1;
+
+                        listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
+
+                        JOptionPane.showMessageDialog(null, "Curso asignado. Aún puedes asignarte " + (5 - actualizacion) + " cursos más");
+                    }
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No puedes asignarte más de 5 cursos");
             }
+
         } else {
             JOptionPane.showMessageDialog(this, "Alumno no existente.");
         }
@@ -259,14 +264,15 @@ public class AsignarCurso extends javax.swing.JFrame {
         });
     }
 
-    private Alumno buscarAlumno(String carne) {
+    private int buscarAlumno(String carne) {
         for (int i = 0; i < listaAlumno.size(); i++) {
-            Alumno a = listaAlumno.get(i);
-            if (a.getCarne().equals(carne)) {
-                return a;
+
+            if (listaAlumno.get(i).getCarne().equals(carne)) {
+
+                return i;
             }
         }
-        return null;
+        return -1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -185,15 +185,10 @@ public class CrearAlumno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAActionPerformed
-        Alumno a = new Alumno();
-        int i = 8;
-        if (txtCarneA.getText().length() == i) {
-            a.setCarne(txtCarneA.getText());
-            a.setCarne(txtCarneA.getText());
-            a.setNom(txtNomA.getText());
-            a.setApe(txtApeA.getText());
-            a.setPass(txtPassA.getText());
-            listaAlumno.add(a);
+                
+        if (txtCarneA.getText().length() == 8) {                        
+            
+            listaAlumno.add(new Alumno(txtCarneA.getText(), txtNomA.getText(), txtApeA.getText(), txtPassA.getText()));
             
             txtCarneA.setText("");
             txtNomA.setText("");

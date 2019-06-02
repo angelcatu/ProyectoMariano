@@ -10,7 +10,8 @@ public class Curso {
     public String horaInicio;
     public String horaFin;
     public String profesor;
-
+    public String nota;
+    
     public Curso() {
     }
 
@@ -23,6 +24,7 @@ public class Curso {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.profesor = profesor;
+        this.nota = "0";
     }
 
     public String getId() {
@@ -88,6 +90,16 @@ public class Curso {
     public void setProfesor(String profesor) {
         this.profesor = profesor;
     }
+
+    public String getNota() {
+        return nota;
+    }
+
+    public void setNota(String nota) {
+        this.nota = nota;
+    }
+    
+    
 
     @Override
     public String toString() {

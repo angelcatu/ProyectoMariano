@@ -196,19 +196,14 @@ public class CrearProfesor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        Profesor profesor = new Profesor();
-        profesor.setUsuario(txtUsuario.getText());
-        profesor.setNombre(txtNombre.getText());
-        profesor.setApellido(txtApellido.getText());
-        profesor.setPassword(txtPassword.getText());
-        lista.add(profesor);
+        
+        lista.add(new Profesor(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtPassword.getText()));
 
         txtUsuario.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
         txtPassword.setText("");
-
-        System.out.println("mortrar ingresos: " + lista.size() + " " + profesor.getUsuario() + profesor.getPassword());
+       
         //Mensaje de dialogo
         JOptionPane.showMessageDialog(this, "Profesor agregado exitosamente");
 

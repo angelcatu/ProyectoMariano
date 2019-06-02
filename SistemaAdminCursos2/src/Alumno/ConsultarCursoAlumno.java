@@ -19,8 +19,7 @@ public class ConsultarCursoAlumno extends javax.swing.JFrame {
 
     ArrayList<Curso> listaCurso = Util.listaCurso;
     ArrayList<Alumno> listaAlumno = Util.listaAlumno;
-    Curso curso = new Curso();
-    Alumno alumno = Util.alumno;
+    Alumno alumno = Util.getAlumno();
 
     public ConsultarCursoAlumno() {
         initComponents();
@@ -41,40 +40,54 @@ public class ConsultarCursoAlumno extends javax.swing.JFrame {
                 System.out.println("Logueado ---> " + alumno.getCarne());
                 System.out.println("La comparación ---> " + listaAlumno.get(i).getCarne());
                 do {
-                    System.out.println("Arreglo: " + listaAlumno.get(i).getCurso()[0]);
-                    System.out.println("Arreglo: " + listaAlumno.get(i).getCurso()[1]);
+                    System.out.println("Arreglo: " + iteradorCursos + "-->" + listaAlumno.get(i).getCurso()[iteradorCursos].getNombre());
+                    Curso curso = listaAlumno.get(i).getCurso()[iteradorCursos];
+                    
+                        modelo.setValueAt(curso.getId(), fila, 0);
+                        modelo.setValueAt(curso.getNombre(), fila, 1);
+                        modelo.setValueAt(curso.getSeccion(), fila, 2);
+                        modelo.setValueAt(curso.getInicio(), fila, 3);
+                        modelo.setValueAt(curso.getFin(), fila, 4);
+                        modelo.setValueAt(curso.getHoraInicio(), fila, 5);
+                        modelo.setValueAt(curso.getHoraFin(), fila, 6);
+                        modelo.setValueAt(curso.getProfesor(), fila, 7);
+                        modelo.setValueAt(curso.getNota(), fila, 8);
 
-                    iteradorCursos++;
+                        fila++;
+
+                        iteradorCursos++;
+                    
                 } while (iteradorCursos != listaAlumno.get(i).getTamañoCursos());
 
-                for (int k = 0; k < listaCurso.size(); k++) {
+                /*
+                 for (int k = 0; k < listaCurso.size(); k++) {
 
-                    /*
                     
-                     if (listaAlumno.get(i).getCurso()[iteradorCursos].equals(listaCurso.get(k).getNombre())) {
-
-                     curso = listaCurso.get(k);
-                     modelo.setValueAt(curso.getId(), fila, 0);
-                     modelo.setValueAt(curso.getNombre(), fila, 1);
-                     modelo.setValueAt(curso.getSeccion(), fila, 2);
-                     modelo.setValueAt(curso.getInicio(), fila, 3);
-                     modelo.setValueAt(curso.getFin(), fila, 4);
-                     modelo.setValueAt(curso.getHoraInicio(), fila, 5);
-                     modelo.setValueAt(curso.getHoraFin(), fila, 6);
-                     modelo.setValueAt(curso.getProfesor(), fila, 7);
-                     modelo.setValueAt(listaAlumno.get(i).getNota(), fila, 8);
-
-                     fila++;
-
-                     iteradorCursos++;
-                     if (iteradorCursos == listaAlumno.get(i).getCurso().length) {
-                     break;
-                     }
-                     }
                     
-                     */
-                }
+                 if (listaAlumno.get(i).getCurso()[iteradorCursos].equals(listaCurso.get(k).getNombre())) {
 
+                 curso = listaCurso.get(k);
+                 modelo.setValueAt(curso.getId(), fila, 0);
+                 modelo.setValueAt(curso.getNombre(), fila, 1);
+                 modelo.setValueAt(curso.getSeccion(), fila, 2);
+                 modelo.setValueAt(curso.getInicio(), fila, 3);
+                 modelo.setValueAt(curso.getFin(), fila, 4);
+                 modelo.setValueAt(curso.getHoraInicio(), fila, 5);
+                 modelo.setValueAt(curso.getHoraFin(), fila, 6);
+                 modelo.setValueAt(curso.getProfesor(), fila, 7);
+                 modelo.setValueAt(listaAlumno.get(i).getNota(), fila, 8);
+
+                 fila++;
+
+                 iteradorCursos++;
+                 if (iteradorCursos == listaAlumno.get(i).getCurso().length) {
+                 break;
+                 }
+                 }
+                    
+                     
+                 }
+                 */
             }
 
         }
