@@ -35,6 +35,16 @@ public class Util {
     public static void setIdCurso(int idCurso) {
         Util.idCurso = idCurso;
     }
+
+    public static Profesor getProfesor() {
+        return profesor;
+    }
+
+    public static void setProfesor(Profesor profesor) {
+        Util.profesor = profesor;
+    }
+    
+    
     
     
     

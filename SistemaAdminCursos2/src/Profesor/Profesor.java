@@ -30,8 +30,11 @@ public class Profesor {
         for (int i = 0; i < lista.size(); i++) {
             if (lista.get(i).getUsuario().equals(user)&&lista.get(i).getPassword().equals(contracena)) {
                                                 
-                Util.profesor = lista.get(i);
-                
+                Util.setProfesor(lista.get(i));
+                Util.getProfesor().setNombre(lista.get(i).getNombre());
+                Util.getProfesor().setApellido(lista.get(i).getApellido());
+                Util.getProfesor().setPassword(lista.get(i).getPassword());
+                                                                                                    
                 return i;
             }
         }

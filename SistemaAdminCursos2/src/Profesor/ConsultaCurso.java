@@ -22,18 +22,26 @@ public class ConsultaCurso extends javax.swing.JFrame {
 
     private void llenartabla() {
         TableModel modelo = jTable1.getModel();
-        int d= 0 ;
-        for (int i = 0; i < listaCurso.size(); i++) {
-            if (profesor.getUsuario().equals(listaCurso.get(i).getProfesor())) {
-                curso = listaCurso.get(i);
-                modelo.setValueAt(curso.getId(), d, 0);
-                modelo.setValueAt(curso.getNombre(), d, 1);
-                modelo.setValueAt(curso.getSeccion(), d, 2);
-                modelo.setValueAt(curso.getInicio(), d, 3);
-                modelo.setValueAt(curso.getFin(), d, 4);
-                modelo.setValueAt(curso.getHoraInicio(), d, 5);
-                modelo.setValueAt(curso.getHoraFin(), d, 6);
-                d++;
+        int d = 0;
+        for (int i = 0; i < lista.size(); i++) {
+            if (profesor.getUsuario().equals(lista.get(i).getUsuario())) {
+
+                Curso curso[] = lista.get(i).getCurso();
+                int iterador = 0;
+
+                do {
+
+                    modelo.setValueAt(curso[iterador].getId(), d, 0);
+                    modelo.setValueAt(curso[iterador].getNombre(), d, 1);
+                    modelo.setValueAt(curso[iterador].getSeccion(), d, 2);
+                    modelo.setValueAt(curso[iterador].getInicio(), d, 3);
+                    modelo.setValueAt(curso[iterador].getFin(), d, 4);
+                    modelo.setValueAt(curso[iterador].getHoraInicio(), d, 5);
+                    modelo.setValueAt(curso[iterador].getHoraFin(), d, 6);
+                    d++;
+
+                    iterador++;
+                } while (iterador != lista.get(i).getIteradorCurso());                                                      
             }
         }
     }
@@ -51,6 +59,17 @@ public class ConsultaCurso extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},

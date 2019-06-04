@@ -14,7 +14,7 @@ public class Curso {
     public String horaFin;
     public Profesor profesor;
     public String nota;    
-    
+    public int iteradorAlumno;
     private Alumno alumno[];
     
     public Curso() {
@@ -30,7 +30,7 @@ public class Curso {
         this.horaFin = horaFin;
         this.profesor = profesor;
         this.nota = "0";
-        
+        this.iteradorAlumno = 0;
         
         this.alumno = new Alumno[10];
         
@@ -127,6 +127,15 @@ public class Curso {
     public void setAlumno(Alumno[] alumno) {
         this.alumno = alumno;
     }
+
+    public int getIteradorAlumno() {
+        return iteradorAlumno;
+    }
+
+    public void setIteradorAlumno(int iteradorAlumno) {
+        this.iteradorAlumno = iteradorAlumno;
+    }
+    
     
     
     

@@ -16,14 +16,14 @@ public class AsignarCurso extends javax.swing.JFrame {
     public AsignarCurso() {
         initComponents();
         ingresoAlumno();
-        
+
         llenartabla();
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.gray);
     }
 
     public void ingresoAlumno() {
-        selecCurso.setModel(new DefaultComboBoxModel(listaCurso.toArray()));        
+        selecCurso.setModel(new DefaultComboBoxModel(listaCurso.toArray()));
     }
 
     private void llenartabla() {
@@ -147,12 +147,13 @@ public class AsignarCurso extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(selecCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(BtnCurso)
-                    .addComponent(jLabel2)
-                    .addComponent(textCarne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(selecCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addComponent(BtnCurso)
+                        .addComponent(textCarne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -182,21 +183,44 @@ public class AsignarCurso extends javax.swing.JFrame {
             if (numCursos != 5) {
 
                 for (int i = 0; i < listaCurso.size(); i++) {
+
                     if (selecCurso.getSelectedItem().toString().equals(listaCurso.get(i).getNombre())) {
-                        Curso cursoActual = listaCurso.get(i);
 
-                        listaAlumno.get(idAlumno).getCurso()[numCursos] = new Curso(cursoActual.getId(), 
-                        cursoActual.getNombre(), cursoActual.getSeccion(), cursoActual.getInicio(),
-                        cursoActual.getFin(), cursoActual.getHoraInicio(),
-                        cursoActual.getHoraFin(), cursoActual.getProfesor());
+                        if (listaCurso.get(i).getIteradorAlumno() != 10) {
+                            Curso cursoActual = listaCurso.get(i);
+                            Alumno alumnoActual[] = listaCurso.get(i).getAlumno();
+                            
+                            int iteradorAlumno = listaCurso.get(i).getIteradorAlumno();
 
-                        listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
+                            listaAlumno.get(idAlumno).getCurso()[numCursos] = new Curso(cursoActual.getId(),
+                                    cursoActual.getNombre(), cursoActual.getSeccion(), cursoActual.getInicio(),
+                                    cursoActual.getFin(), cursoActual.getHoraInicio(),
+                                    cursoActual.getHoraFin(), cursoActual.getProfesor());
 
-                        int actualizacion = numCursos + 1;
+                            listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
 
-                        listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
+                            int actualizacion = numCursos + 1;
 
-                        JOptionPane.showMessageDialog(null, "Curso asignado. Aún puedes asignarte " + (5 - actualizacion) + " cursos más");
+                            listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
+
+                            JOptionPane.showMessageDialog(null, "Curso asignado. Aún puedes asignarte " + (5 - actualizacion) + " cursos más");
+                            
+                            
+                            //Comienzo de asignación de 10 alumnos al curso
+                            alumnoActual[iteradorAlumno] = listaAlumno.get(idAlumno);
+                            listaCurso.get(i).setAlumno(alumnoActual);
+                            
+                           
+                            int updateItAlumno = iteradorAlumno+1;                            
+                            listaCurso.get(i).setIteradorAlumno(updateItAlumno);
+                            
+                            
+                            JOptionPane.showMessageDialog(null, "Alumno asignado al curso.  Aún hay " + (10 - updateItAlumno) + " cupos");
+                            
+                            
+                        }else{
+                            JOptionPane.showMessageDialog(null, "El curso está lleno, no se puede asignar más");
+                        }
                     }
                 }
 

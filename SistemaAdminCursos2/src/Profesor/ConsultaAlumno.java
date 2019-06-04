@@ -1,6 +1,7 @@
 package Profesor;
 
 import Alumno.Alumno;
+import Curso.Curso;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -10,31 +11,50 @@ import sistemaadmincursos2.Util;
 public class ConsultaAlumno extends javax.swing.JFrame {
 
     ArrayList<Alumno> listaAlumno = Util.listaAlumno;
+    ArrayList<Curso> listaCurso = Util.listaCurso;
+    ArrayList<Profesor> lista = Util.lista;
     Alumno alumno = new Alumno();
+    Profesor profesor = Util.profesor;
 
     public ConsultaAlumno() {
         initComponents();
         llenartabla();
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.gray);
-        
+
         for (int i = 0; i < listaAlumno.size(); i++) {
-            
+
         }
-        
-        
+
     }
 
     private void llenartabla() {
         TableModel modelo = jTable1.getModel();
-        for (int i = 0; i < listaAlumno.size(); i++) {
-            Alumno a = listaAlumno.get(i);
-            modelo.setValueAt(a.getCarne(), i, 0);
-            modelo.setValueAt(a.getNom(), i, 1);
-            modelo.setValueAt(a.getApe(), i, 2);
-            
-//            modelo.setValueAt(a.getNota(), i, 3);
+
+        int d = 0;
+
+        for (int j = 0; j < listaCurso.size(); j++) {
+
+            if (profesor.getUsuario().equals(listaCurso.get(j).getProfesor().getUsuario())) {
+
+                Alumno alumno[] = listaCurso.get(j).getAlumno();
+                int iterador = 0;
+
+                do {
+
+                    modelo.setValueAt(alumno[iterador].getCarne(), d, 0);
+                    modelo.setValueAt(alumno[iterador].getNom(), d, 1);
+                    modelo.setValueAt(alumno[iterador].getApe(), d, 2);
+                    modelo.setValueAt(listaCurso.get(j).getNombre(), d, 3);
+                    modelo.setValueAt(listaCurso.get(j).getNota(), d, 4);
+                    d++;
+
+                } while (iterador != listaCurso.get(j).getIteradorAlumno());
+
+            }
+
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -68,6 +88,86 @@ public class ConsultaAlumno extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
