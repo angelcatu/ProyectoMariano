@@ -23,12 +23,11 @@ public class MenuProfesor extends javax.swing.JFrame {
     }
 
     public void mostrar() {
-        for (int i = 0; i < lista.size(); i++) {
-            profesor = lista.get(i);
-            txtNombre.setText(profesor.getNombre());
-            txtApellido.setText(profesor.getApellido());
-            txtPassword.setText(profesor.getPassword());
-        }
+       
+        txtNombre.setText(Util.getProfesor().getNombre());
+        txtApellido.setText(Util.getProfesor().getApellido());
+        txtPassword.setText(Util.getProfesor().getPassword());
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -163,24 +162,23 @@ public class MenuProfesor extends javax.swing.JFrame {
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         String usuario = txtNombre.getText();
-        profesor = buscarProfesor(usuario);
+        int profesor = buscarProfesor(usuario);
 
-        if (profesor != null) {
-            txtNombre.setText(profesor.getNombre());
-            if (profesor != null) {
-                profesor.setPassword(txtPassword.getText());
-            }
+        if (profesor != -1) {
+            lista.get(profesor).setNombre(txtNombre.getText());
+            lista.get(profesor).setApellido(txtApellido.getText());
+            lista.get(profesor).setNombre(txtPassword.getText());
         }
     }//GEN-LAST:event_jToggleButton2ActionPerformed
-    private Profesor buscarProfesor(String usuario) {
+    private int buscarProfesor(String usuario) {
 
         for (int i = 0; i < lista.size(); i++) {
-            Profesor p = lista.get(i);
-            if (p.getUsuario().equals(usuario)) {
-                return p;
+            
+            if (lista.get(i).getUsuario().equals(usuario)) {
+                return i;
             }
         }
-        return null;
+        return -1;
     }
 
     public static void main(String args[]) {
@@ -229,3 +227,4 @@ public class MenuProfesor extends javax.swing.JFrame {
     private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
 }
+

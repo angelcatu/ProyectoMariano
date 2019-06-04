@@ -6,15 +6,4 @@
 {"id":6,"nombre":"Louella","seccion":"Ms","fecha_inicio":"7/22/2018","fecha_fin":"10/29/2018","hora_inicio":"$2.98","hora_fin":"$0.50","profesor":"1"},
 {"id":7,"nombre":"Rubina","seccion":"Mrs","fecha_inicio":"4/9/2019","fecha_fin":"6/30/2018","hora_inicio":"$3.03","hora_fin":"$5.75","profesor":"1"},
 {"id":8,"nombre":"Lora","seccion":"Honorable","fecha_inicio":"1/27/2019","fecha_fin":"10/7/2018","hora_inicio":"$2.44","hora_fin":"$8.95","profesor":"4"},
-{"id":9,"nombre":"Effie","seccion":"Rev","fecha_inicio":"9/20/2018","fecha_fin":"10/22/2018","hora_inicio":"$7.51","hora_fin":"$9.35","profesor":"4"},
-{"id":10,"nombre":"Beatrice","seccion":"Mr","fecha_inicio":"1/2/2019","fecha_fin":"2/18/2019","hora_inicio":"$2.07","hora_fin":"$9.62","profesor":"5"},
-{"id":11,"nombre":"Norma","seccion":"Mr","fecha_inicio":"12/11/2018","fecha_fin":"12/25/2018","hora_inicio":"$9.88","hora_fin":"$5.43","profesor":"6"},
-{"id":12,"nombre":"Annette","seccion":"Rev","fecha_inicio":"7/20/2018","fecha_fin":"8/18/2018","hora_inicio":"$3.14","hora_fin":"$4.21","profesor":"7"},
-{"id":13,"nombre":"George","seccion":"Ms","fecha_inicio":"7/11/2018","fecha_fin":"3/29/2019","hora_inicio":"$6.20","hora_fin":"$8.91","profesor":"8"},
-{"id":14,"nombre":"Marjy","seccion":"Mrs","fecha_inicio":"5/26/2019","fecha_fin":"1/14/2019","hora_inicio":"$3.07","hora_fin":"$5.48","profesor":"8"},
-{"id":15,"nombre":"Robinia","seccion":"Mrs","fecha_inicio":"10/8/2018","fecha_fin":"8/7/2018","hora_inicio":"$5.05","hora_fin":"$8.83","profesor":"9"},
-{"id":16,"nombre":"Guillemette","seccion":"Mrs","fecha_inicio":"10/18/2018","fecha_fin":"6/14/2018","hora_inicio":"$4.43","hora_fin":"$5.79","profesor":"10"},
-{"id":17,"nombre":"Teddy","seccion":"Honorable","fecha_inicio":"2/1/2019","fecha_fin":"11/29/2018","hora_inicio":"$2.53","hora_fin":"$5.45","profesor":"11"},
-{"id":18,"nombre":"Fleur","seccion":"Mrs","fecha_inicio":"3/5/2019","fecha_fin":"9/16/2018","hora_inicio":"$9.14","hora_fin":"$7.08","profesor":"12"},
-{"id":19,"nombre":"Anjanette","seccion":"Ms","fecha_inicio":"6/26/2018","fecha_fin":"8/4/2018","hora_inicio":"$9.62","hora_fin":"$8.41","profesor":"13"},
-{"id":20,"nombre":"Aeriell","seccion":"Mr","fecha_inicio":"12/2/2018","fecha_fin":"1/9/2019","hora_inicio":"$6.54","hora_fin":"$5.74","profesor":"20"}]
+{"id":9,"nombre":"Effie","seccion":"Rev","fecha_inicio":"9/20/2018","fecha_fin":"10/22/2018","hora_inicio":"$7.51","hora_fin":"$9.35","profesor":"4"}]

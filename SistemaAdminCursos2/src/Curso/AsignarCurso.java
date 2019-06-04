@@ -27,13 +27,18 @@ public class AsignarCurso extends javax.swing.JFrame {
     }
 
     private void llenartabla() {
-        TableModel modelo = jTable1.getModel();
-        for (int i = 0; i < listaAlumno.size(); i++) {
-            Alumno a = listaAlumno.get(i);
-            modelo.setValueAt(a.getCarne(), i, 0);
-            modelo.setValueAt(a.getNom(), i, 1);
-            modelo.setValueAt(a.getApe(), i, 2);
-            modelo.setValueAt("", i, 3);
+
+        try {
+            TableModel modelo = jTable1.getModel();
+            for (int i = 0; i < listaAlumno.size(); i++) {
+                Alumno a = listaAlumno.get(i);
+                modelo.setValueAt(a.getCarne(), i, 0);
+                modelo.setValueAt(a.getNom(), i, 1);
+                modelo.setValueAt(a.getApe(), i, 2);
+                modelo.setValueAt("", i, 3);
+            }
+        } catch (Exception e) {
+
         }
     }
 
@@ -66,6 +71,36 @@ public class AsignarCurso extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -189,7 +224,7 @@ public class AsignarCurso extends javax.swing.JFrame {
                         if (listaCurso.get(i).getIteradorAlumno() != 10) {
                             Curso cursoActual = listaCurso.get(i);
                             Alumno alumnoActual[] = listaCurso.get(i).getAlumno();
-                            
+
                             int iteradorAlumno = listaCurso.get(i).getIteradorAlumno();
 
                             listaAlumno.get(idAlumno).getCurso()[numCursos] = new Curso(cursoActual.getId(),
@@ -204,21 +239,17 @@ public class AsignarCurso extends javax.swing.JFrame {
                             listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
 
                             JOptionPane.showMessageDialog(null, "Curso asignado. Aún puedes asignarte " + (5 - actualizacion) + " cursos más");
-                            
-                            
+
                             //Comienzo de asignación de 10 alumnos al curso
                             alumnoActual[iteradorAlumno] = listaAlumno.get(idAlumno);
                             listaCurso.get(i).setAlumno(alumnoActual);
-                            
-                           
-                            int updateItAlumno = iteradorAlumno+1;                            
+
+                            int updateItAlumno = iteradorAlumno + 1;
                             listaCurso.get(i).setIteradorAlumno(updateItAlumno);
-                            
-                            
+
                             JOptionPane.showMessageDialog(null, "Alumno asignado al curso.  Aún hay " + (10 - updateItAlumno) + " cupos");
-                            
-                            
-                        }else{
+
+                        } else {
                             JOptionPane.showMessageDialog(null, "El curso está lleno, no se puede asignar más");
                         }
                     }

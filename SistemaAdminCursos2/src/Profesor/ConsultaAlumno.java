@@ -3,7 +3,11 @@ package Profesor;
 import Alumno.Alumno;
 import Curso.Curso;
 import java.awt.Color;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import sistemaadmincursos2.Util;
@@ -29,29 +33,38 @@ public class ConsultaAlumno extends javax.swing.JFrame {
     }
 
     private void llenartabla() {
-        TableModel modelo = jTable1.getModel();
 
-        int d = 0;
+        try {
 
-        for (int j = 0; j < listaCurso.size(); j++) {
+            TableModel modelo = jTable1.getModel();
 
-            if (profesor.getUsuario().equals(listaCurso.get(j).getProfesor().getUsuario())) {
+            int d = 0;
 
-                Alumno alumno[] = listaCurso.get(j).getAlumno();
-                int iterador = 0;
+            for (int j = 0; j < listaCurso.size(); j++) {
 
-                do {
+                if (profesor.getUsuario().equals(listaCurso.get(j).getProfesor().getUsuario())) {
 
-                    modelo.setValueAt(alumno[iterador].getCarne(), d, 0);
-                    modelo.setValueAt(alumno[iterador].getNom(), d, 1);
-                    modelo.setValueAt(alumno[iterador].getApe(), d, 2);
-                    modelo.setValueAt(listaCurso.get(j).getNombre(), d, 3);
-                    modelo.setValueAt(listaCurso.get(j).getNota(), d, 4);
-                    d++;
+                    Alumno alumno[] = listaCurso.get(j).getAlumno();
+                    int iterador = 0;
 
-                } while (iterador != listaCurso.get(j).getIteradorAlumno());
+                    if (alumno[iterador] != null) {
+                        do {
+
+                            modelo.setValueAt(alumno[iterador].getCarne(), d, 0);
+                            modelo.setValueAt(alumno[iterador].getNom(), d, 1);
+                            modelo.setValueAt(alumno[iterador].getApe(), d, 2);
+                            modelo.setValueAt(listaCurso.get(j).getNombre(), d, 3);
+                            modelo.setValueAt(alumno[iterador].getNota(), d, 4);
+                            d++;
+                            iterador++;
+
+                        } while (iterador != listaCurso.get(j).getIteradorAlumno());
+                    }
+                }
 
             }
+
+        } catch (Exception e) {
 
         }
 
@@ -65,13 +78,10 @@ public class ConsultaAlumno extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
-        txtCarA = new javax.swing.JTextField();
         btnNota = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        txtNota = new javax.swing.JTextField();
         btnbuscar = new javax.swing.JButton();
-        selecCurso = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,56 +147,6 @@ public class ConsultaAlumno extends javax.swing.JFrame {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
                 {null, null, null, null, null}
             },
             new String [] {
@@ -195,16 +155,12 @@ public class ConsultaAlumno extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel4.setText("Carné:");
-
         btnNota.setText("Ingresar nota");
         btnNota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNotaActionPerformed(evt);
             }
         });
-
-        jLabel2.setText("Nota:");
 
         btnbuscar.setText("buscar nota");
         btnbuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +169,14 @@ public class ConsultaAlumno extends javax.swing.JFrame {
             }
         });
 
-        selecCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel3.setText("Instrucciones: Seleccionar la fila y presione el botón Ingresar nota para actualizar");
+
+        jButton2.setText("Descargar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -221,36 +184,26 @@ public class ConsultaAlumno extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnNota)
-                                .addGap(43, 43, 43)
-                                .addComponent(btnbuscar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCarA, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(selecCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addComponent(btnNota))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnbuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(56, 56, 56)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNota, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(19, 19, 19))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(179, 179, 179))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,18 +213,12 @@ public class ConsultaAlumno extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNota, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnbuscar)
-                    .addComponent(btnNota, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(txtCarA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(selecCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)))
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -288,21 +235,74 @@ public class ConsultaAlumno extends javax.swing.JFrame {
     private void btnNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotaActionPerformed
         if (alumno != null) {
             //alumno.setNota(Integer.valueOf(txtNota.getText()));
-            JOptionPane.showMessageDialog(this, "insertar nota");
+            int rowIndex = jTable1.getSelectedRow();
+
+            String nombre = jTable1.getValueAt(rowIndex, 1).toString();
+            String apellido = jTable1.getValueAt(rowIndex, 2).toString();
+            String carne = jTable1.getValueAt(rowIndex, 0).toString();
+            String curso = jTable1.getValueAt(rowIndex, 3).toString();
+
+            String nota = JOptionPane.showInputDialog(null, "Inserte la nota para el estudiante " + nombre + " " + apellido);
+
+            for (int j = 0; j < listaCurso.size(); j++) {
+
+                if (profesor.getUsuario().equals(listaCurso.get(j).getProfesor().getUsuario())) {
+
+                    Alumno alumno[] = listaCurso.get(j).getAlumno();
+
+                    int iterador = 0;
+
+                    /*
+                     do{
+                     int iteradorAlumno = 0;
+                     int iteradorCurso = 0;      
+                        
+                     do{
+                            
+                     JOptionPane.showMessageDialog(null, "El curso seleccionado es: " + curso);
+                            
+                     if(carne.equals(alumno[iteradorAlumno].getCarne())){
+                     JOptionPane.showConfirmDialog(null, "Carne a cambiar " + alumno[iteradorAlumno].getCarne());
+                     }
+                            
+                            
+                     if(curso.equals(alumno[iteradorAlumno].getCurso()[iteradorCurso].getNombre())){
+                     listaCurso.get(j).getAlumno()[iteradorAlumno].getCurso()[iteradorCurso].setNota(nota);
+                     JOptionPane.showMessageDialog(null, "La nota "+nota+" para "+listaCurso.get(j).getAlumno()[iteradorAlumno].getCarne());
+                     }
+                            
+                            
+                     JOptionPane.showMessageDialog(null, "Tamaño de listado de cursos "+alumno[iteradorAlumno].getCurso()[iteradorCurso].getIteradorAlumno());
+                            
+                     iteradorCurso++;
+                            
+                     }while(iteradorCurso != alumno[iteradorAlumno].getCurso()[iteradorCurso].getIteradorAlumno());                                                                                                
+                        
+                     iteradorAlumno++;
+                     iterador++;
+                     }while(iterador != listaCurso.get(j).getIteradorAlumno());
+                     */
+                }
+
+            }
+
         }
 
     }//GEN-LAST:event_btnNotaActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
-        String carne = txtCarA.getText();
 
-        alumno = buscarAlumno(carne);
+        alumno = buscarAlumno("");
         if (alumno != null) {
             //txtNota.setText(String.valueOf(alumno.getNota()));
         } else {
             JOptionPane.showMessageDialog(this, "Alumno no existente.");
         }
     }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        descargarArchivo();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
 
@@ -328,13 +328,63 @@ public class ConsultaAlumno extends javax.swing.JFrame {
     private javax.swing.JButton btnNota;
     private javax.swing.JButton btnbuscar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JComboBox selecCurso;
-    private javax.swing.JTextField txtCarA;
-    private javax.swing.JTextField txtNota;
     // End of variables declaration//GEN-END:variables
+
+    private void descargarArchivo() {
+        try {
+            String nombre = "";
+            String contenido = "carne,nombre,apellido,curso, nota" + "\n";
+            JFileChooser file = new JFileChooser();
+            file.showSaveDialog(this);
+
+            File guardar = file.getSelectedFile();
+
+            if (guardar != null) {
+                FileWriter archivo = new FileWriter(guardar + ".csv");
+
+                int d = 0;
+
+                for (int j = 0; j < listaCurso.size(); j++) {
+
+                    if (profesor.getUsuario().equals(listaCurso.get(j).getProfesor().getUsuario())) {
+
+                        Alumno alumno[] = listaCurso.get(j).getAlumno();
+                        int iterador = 0;
+
+                        if (alumno[iterador] != null) {
+                            do {
+
+                                contenido += alumno[iterador].getCarne() + ","
+                                        + alumno[iterador].getNom()+ ","
+                                        + alumno[iterador].getApe()+ ","
+                                        + listaCurso.get(j).getNombre()+","
+                                        +alumno[iterador].getNota()+"\n";
+                                
+                                d++;
+                                iterador++;
+
+                            } while (iterador != listaCurso.get(j).getIteradorAlumno());
+                        }
+                    }
+
+                }
+
+                archivo.write(contenido);
+
+                archivo.close();
+
+                JOptionPane.showMessageDialog(null, "Archivo guardado correctamente");
+
+            }
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo guardar el archivo correctamente");
+        }
+    }
+
 }

@@ -196,18 +196,20 @@ public class CrearProfesor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        
-        lista.add(new Profesor(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtPassword.getText()));
 
-        txtUsuario.setText("");
-        txtNombre.setText("");
-        txtApellido.setText("");
-        txtPassword.setText("");
-       
-        //Mensaje de dialogo
-        JOptionPane.showMessageDialog(this, "Profesor agregado exitosamente");
+        if (txtUsuario.getText().length() > 0 && txtNombre.getText().length() > 0
+                && txtApellido.getText().length() > 0 && txtPassword.getText().length() > 0) {
 
+            lista.add(new Profesor(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtPassword.getText()));
 
+            txtUsuario.setText("");
+            txtNombre.setText("");
+            txtApellido.setText("");
+            txtPassword.setText("");
+
+            //Mensaje de dialogo
+            JOptionPane.showMessageDialog(this, "Profesor agregado exitosamente");
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
 
@@ -292,7 +294,7 @@ public class CrearProfesor extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void abrirChooser() {
-        
+
         String aux = "";
         String texto = "";
 
@@ -308,9 +310,9 @@ public class CrearProfesor extends javax.swing.JFrame {
 
         if (seleccion == JFileChooser.APPROVE_OPTION) {
             File fichero = file.getSelectedFile();
-                                    
+
             insertarProfesores(fichero.getPath());
-        
+
         }
 
     }
@@ -324,16 +326,16 @@ public class CrearProfesor extends javax.swing.JFrame {
             entradaProfesor.next();
 
             while (entradaProfesor.hasNext()) {
-                
+
                 datosProfesores = entradaProfesor.next();
                 valoresProfesores = datosProfesores.split(",");
 
                 //Se agrega a la lista de profesores los valores obtenidos del archivo separado por comas
-                lista.add(new Profesor(valoresProfesores[0], valoresProfesores[1], valoresProfesores[2], valoresProfesores[3]));                               
+                lista.add(new Profesor(valoresProfesores[0], valoresProfesores[1], valoresProfesores[2], valoresProfesores[3]));
             }
-            
+
             entradaProfesor.close();
-            
+
             JOptionPane.showMessageDialog(null, "Archivo cargado existosamente");
 
         } catch (FileNotFoundException e) {
@@ -342,36 +344,35 @@ public class CrearProfesor extends javax.swing.JFrame {
     }
 
     private void guardarCSVProfesores() {
-        try{
+        try {
             String nombre = "";
-            String contenido = "usuario,nombre,apellido,contraseña"+"\n";
+            String contenido = "usuario,nombre,apellido,contraseña" + "\n";
             JFileChooser file = new JFileChooser();
             file.showSaveDialog(this);
-            
+
             File guardar = file.getSelectedFile();
-            
-            if(guardar != null){
-                FileWriter archivo = new FileWriter(guardar + ".csv");  
-                
-                for(int i = 0; i < lista.size(); i++){
-                    contenido+=
-                            lista.get(i).getUsuario()+","
-                            +lista.get(i).getNombre()+","
-                            +lista.get(i).getApellido()+","
-                            +lista.get(i).getPassword()+"\n";
-                            
+
+            if (guardar != null) {
+                FileWriter archivo = new FileWriter(guardar + ".csv");
+
+                for (int i = 0; i < lista.size(); i++) {
+                    contenido
+                            += lista.get(i).getUsuario() + ","
+                            + lista.get(i).getNombre() + ","
+                            + lista.get(i).getApellido() + ","
+                            + lista.get(i).getPassword() + "\n";
+
                 }
-                                                
+
                 archivo.write(contenido);
-                
+
                 archivo.close();
-                
-                
+
                 JOptionPane.showMessageDialog(null, "Archivo guardado correctamente");
-                
+
             }
-            
-        }catch(IOException e){
+
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "No se pudo guardar el archivo correctamente");
         }
     }

@@ -18,17 +18,26 @@ public class ConsultaCurso extends javax.swing.JFrame {
     }
 
     private void llenartabla() {
-        TableModel modelo = jTable1.getModel();
-        for (int i = 0; i < listaCurso.size(); i++) {
-            curso = listaCurso.get(i);
-            modelo.setValueAt(curso.getId(), i, 0);
-            modelo.setValueAt(curso.getNombre(), i, 1);
-            modelo.setValueAt(curso.getSeccion(), i, 2);
-            modelo.setValueAt(curso.getInicio(), i, 3);
-            modelo.setValueAt(curso.getFin(), i, 4);
-            modelo.setValueAt(curso.getHoraInicio(), i, 5);
-            modelo.setValueAt(curso.getHoraFin(), i, 6);
-            modelo.setValueAt(curso.getProfesor(), i, 7);
+        try {
+            TableModel modelo = jTable1.getModel();
+
+            int fila = 0;
+
+            for (int i = 0; i < listaCurso.size(); i++) {
+                curso = listaCurso.get(i);
+                modelo.setValueAt(curso.getId(), fila, 0);
+                modelo.setValueAt(curso.getNombre(), fila, 1);
+                modelo.setValueAt(curso.getSeccion(), fila, 2);
+                modelo.setValueAt(curso.getInicio(), fila, 3);
+                modelo.setValueAt(curso.getFin(), fila, 4);
+                modelo.setValueAt(curso.getHoraInicio(), fila, 5);
+                modelo.setValueAt(curso.getHoraFin(), fila, 6);
+                modelo.setValueAt(curso.getProfesor().getUsuario(), fila, 7);
+
+                fila++;
+            }
+        } catch (Exception e) {
+
         }
     }
 
@@ -45,6 +54,35 @@ public class ConsultaCurso extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -113,13 +151,13 @@ public class ConsultaCurso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnsalirActionPerformed
-        CrearCurso cursos =new CrearCurso();
+        CrearCurso cursos = new CrearCurso();
         cursos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnsalirActionPerformed
 
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ConsultaCurso().setVisible(true);

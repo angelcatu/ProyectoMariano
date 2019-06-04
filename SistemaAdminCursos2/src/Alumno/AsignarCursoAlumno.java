@@ -1,4 +1,3 @@
-
 package Alumno;
 
 import Curso.Curso;
@@ -13,37 +12,44 @@ import sistemaadmincursos2.Util;
  * @author ANDROID
  */
 public class AsignarCursoAlumno extends javax.swing.JFrame {
-    
+
     ArrayList<Alumno> listaAlumno = Util.listaAlumno;
     ArrayList<Curso> listaCurso = Util.listaCurso;
-    Alumno alumno = new Alumno();
+    Alumno alumno;
     Curso curso = new Curso();
-    
+
     public AsignarCursoAlumno() {
         initComponents();
         ingresoAlumno();
         llenartabla();
+        alumno = Util.getAlumno();
+        TextId.setText(Util.getAlumno().getCarne());
     }
 
-     private void llenartabla() {
-        TableModel modelo = jTable1.getModel();
-        for (int i = 0; i < listaCurso.size(); i++) {
-            curso = listaCurso.get(i);
-            modelo.setValueAt(curso.getId(), i, 0);
-            modelo.setValueAt(curso.getNombre(), i, 1);
-            modelo.setValueAt(curso.getSeccion(), i, 2);
-            modelo.setValueAt(curso.getInicio(), i, 3);
-            modelo.setValueAt(curso.getFin(), i, 4);
-            modelo.setValueAt(curso.getHoraInicio(), i, 5);
-            modelo.setValueAt(curso.getHoraFin(), i, 6);
-            modelo.setValueAt(curso.getProfesor(), i, 7);
+    private void llenartabla() {
+        try {
+            TableModel modelo = jTable1.getModel();
+            for (int i = 0; i < listaCurso.size(); i++) {
+                curso = listaCurso.get(i);
+                modelo.setValueAt(curso.getId(), i, 0);
+                modelo.setValueAt(curso.getNombre(), i, 1);
+                modelo.setValueAt(curso.getSeccion(), i, 2);
+                modelo.setValueAt(curso.getInicio(), i, 3);
+                modelo.setValueAt(curso.getFin(), i, 4);
+                modelo.setValueAt(curso.getHoraInicio(), i, 5);
+                modelo.setValueAt(curso.getHoraFin(), i, 6);
+                modelo.setValueAt(curso.getProfesor(), i, 7);
+            }
+        } catch (Exception e) {
+            System.out.println("erro de asignacion de curso alumno en alumno:" + e.getMessage());
         }
+
     }
-    
+
     public void ingresoAlumno() {
         selecCurso.setModel(new DefaultComboBoxModel(listaCurso.toArray()));
     }
-   
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -53,9 +59,8 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
         BtnCurso = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        selecCurso = new javax.swing.JComboBox<>();
+        selecCurso = new javax.swing.JComboBox<String>();
         TextId = new javax.swing.JTextField();
-        BtnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -84,7 +89,7 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
         });
 
         selecCurso.setEditable(true);
-        selecCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selecCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         TextId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,15 +97,48 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
             }
         });
 
-        BtnEliminar.setText("Eliminar");
-        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEliminarActionPerformed(evt);
-            }
-        });
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -140,9 +178,7 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
                         .addComponent(selecCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(BtnCurso)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnEliminar)
-                        .addGap(0, 108, Short.MAX_VALUE))
+                        .addGap(0, 195, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -153,13 +189,10 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BtnCurso)
-                            .addComponent(BtnEliminar)))
+                        .addComponent(BtnCurso))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(selecCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,15 +210,55 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
     private void BtnCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCursoActionPerformed
         String carne = TextId.getText();
 
-        alumno = buscarAlumno(carne);
-        if (alumno != null) {
-            TextId.setText(alumno.getCarne());
-            if (alumno != null) {
+        int idAlumno = buscarAlumno(carne);
+        if (idAlumno != -1) {
 
-                //alumno.setCurso(selecCurso.getSelectedItem().toString());
-                JOptionPane.showMessageDialog(this, "Curso asignado.");
+            int iteradorCursos = listaAlumno.get(idAlumno).getTamañoCursos();
 
+            if (iteradorCursos != 5) {
+
+                int fila = jTable1.getSelectedRow();
+                String idCurso = jTable1.getValueAt(fila, 0).toString();
+
+                for (int i = 0; i < listaCurso.size(); i++) {
+
+                    if (idCurso.equals(String.valueOf(listaCurso.get(i).getId()))) {
+
+                        if (listaCurso.get(i).getIteradorAlumno() != 10) {
+                            Curso cursoActual = listaCurso.get(i);
+                            Alumno alumnoActual[] = listaCurso.get(i).getAlumno();
+
+                            int iterador = listaCurso.get(i).getIteradorAlumno();
+
+                            listaAlumno.get(idAlumno).getCurso()[iteradorCursos] = cursoActual;
+
+                            listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
+
+                            int actualizacion = iteradorCursos + 1;
+
+                            listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
+
+                            JOptionPane.showMessageDialog(null, "Curso asignado. Aún puedes asignarte " + (5 - actualizacion) + " cursos más");
+
+                            //Comienzo de asignación de 10 alumnos al curso
+                            alumnoActual[iterador] = listaAlumno.get(idAlumno);
+                            listaCurso.get(i).setAlumno(alumnoActual);
+
+                            int updateItAlumno = iterador + 1;
+                            listaCurso.get(i).setIteradorAlumno(updateItAlumno);
+
+                            JOptionPane.showMessageDialog(null, "Alumno asignado al curso.  Aún hay " + (10 - updateItAlumno) + " cupos");
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El curso está lleno, no se puede asignar más");
+                        }
+                    }
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No puedes asignarte más de 5 cursos");
             }
+
         } else {
             JOptionPane.showMessageDialog(this, "Alumno no existente.");
         }
@@ -201,23 +274,19 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
 
     }//GEN-LAST:event_TextIdActionPerformed
 
-    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        if(alumno!=null){
-            listaAlumno.remove(alumno.getCurso());
-            JOptionPane.showMessageDialog(this, "Curso eliminado");
-        }
-                
-    }//GEN-LAST:event_BtnEliminarActionPerformed
+    private int buscarAlumno(String carne) {
 
-    private Alumno buscarAlumno(String carne) {
+        int retorno = -1;
         for (int i = 0; i < listaAlumno.size(); i++) {
-            Alumno a = listaAlumno.get(i);
-            if (a.getCarne().equals(carne)) {
-                return a;
+
+            if (listaAlumno.get(i).getCarne().equals(carne)) {
+                retorno = i;
+                i = listaAlumno.size();
             }
         }
-        return null;
+        return retorno;
     }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -252,7 +321,6 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCurso;
-    private javax.swing.JButton BtnEliminar;
     private javax.swing.JTextField TextId;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

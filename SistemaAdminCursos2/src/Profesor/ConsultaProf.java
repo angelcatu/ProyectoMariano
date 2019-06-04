@@ -19,9 +19,9 @@ import javax.swing.table.TableModel;
  * @author admin
  */
 public class ConsultaProf extends javax.swing.JFrame {
-     
-    ArrayList<Profesor>lista;
-    
+
+    ArrayList<Profesor> lista;
+
     public ConsultaProf(ArrayList<Profesor> lista) {
         this.lista = lista;
         initComponents();
@@ -51,6 +51,36 @@ public class ConsultaProf extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -154,7 +184,7 @@ public class ConsultaProf extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              
+
             }
         });
     }
@@ -168,14 +198,19 @@ public class ConsultaProf extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void llenartabla() {
-       TableModel modelo = jTable1.getModel();
-                                                 
-        for(int i = 0; i<lista.size();i++){
-            Profesor p = lista.get(i);
-            modelo.setValueAt(p.getUsuario(), i, 0);            
-            modelo.setValueAt(p.getNombre(), i, 1);
-            modelo.setValueAt(p.getApellido(), i, 2);
-            modelo.setValueAt(p.getPassword(), i, 3);
+
+        try {
+            TableModel modelo = jTable1.getModel();
+
+            for (int i = 0; i < lista.size(); i++) {
+                Profesor p = lista.get(i);
+                modelo.setValueAt(p.getUsuario(), i, 0);
+                modelo.setValueAt(p.getNombre(), i, 1);
+                modelo.setValueAt(p.getApellido(), i, 2);
+                modelo.setValueAt(p.getPassword(), i, 3);
+            }
+        } catch (Exception e) {
+
         }
     }
 }

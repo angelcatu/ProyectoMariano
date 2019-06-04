@@ -18,17 +18,18 @@ public class MenuAlumno extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.gray);
         txtCarne.setEditable(false);
         txtNombre.setEditable(false);
+        
+        
 
     }
 
     public void mostrar() {
-        for (int i = 0; i < listaAlumno.size(); i++) {
-            alumno = listaAlumno.get(i);
-            txtCarne.setText(alumno.getCarne());
-            txtNombre.setText(alumno.getNom());
-            txtApellido.setText(alumno.getApe());
-            txtPassword.setText(alumno.getPass());
-        }
+       Alumno alumno = Util.getAlumno();
+       
+       txtCarne.setText(alumno.getCarne());
+       txtNombre.setText(alumno.getNom());
+       txtApellido.setText(alumno.getApe());
+       txtPassword.setText(alumno.getPass());
     }
 
     @SuppressWarnings("unchecked")
@@ -182,24 +183,24 @@ public class MenuAlumno extends javax.swing.JFrame {
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         String carne = txtCarne.getText();
-        alumno = buscarAlumno(carne);
+        int alumno = buscarAlumno(carne);
 
-        if (alumno != null) {
-            txtCarne.setText(alumno.getCarne());
-            if (alumno != null) {
-                alumno.setCarne(txtCarne.getText());
-            }
+        if (alumno != -1) {
+           listaAlumno.get(alumno).setNom(txtNombre.getText());
+           listaAlumno.get(alumno).setApe(txtApellido.getText());
+           listaAlumno.get(alumno).setPass(txtPassword.getText());
+           
         }
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
-    private Alumno buscarAlumno(String carne) {
+    private int buscarAlumno(String carne) {
         for (int i = 0; i < listaAlumno.size(); i++) {
-            Alumno a = listaAlumno.get(i);
-            if (a.carne.equals(carne)) {
-                return a;
+            
+            if (listaAlumno.get(i).getCarne().equals(carne)) {
+                return i;
             }
         }
-        return null;
+        return -1;
     }
 
     public static void main(String args[]) {

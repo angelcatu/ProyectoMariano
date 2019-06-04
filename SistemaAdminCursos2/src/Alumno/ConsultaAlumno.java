@@ -1,5 +1,3 @@
-
-
 package Alumno;
 
 import Alumno.Alumno;
@@ -13,6 +11,7 @@ import sistemaadmincursos2.Util;
  * @author Andrea
  */
 public class ConsultaAlumno extends javax.swing.JFrame {
+
     ArrayList<Alumno> listaAlumno = Util.listaAlumno;
 
     public ConsultaAlumno() {
@@ -21,16 +20,20 @@ public class ConsultaAlumno extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.gray);
     }
-    
-    
-      private void llenartabla() {
-       TableModel modelo = jTable1.getModel();
-        for(int i = 0; i<listaAlumno.size();i++){
-            Alumno a = listaAlumno.get(i);
-            modelo.setValueAt(a.getCarne(), i, 0);
-            modelo.setValueAt(a.getNom(), i, 1);
-            modelo.setValueAt(a.getApe(), i, 2);
-            modelo.setValueAt(a.getPass(), i, 3);
+
+    private void llenartabla() {
+
+        try {
+            TableModel modelo = jTable1.getModel();
+            for (int i = 0; i < listaAlumno.size(); i++) {
+                Alumno a = listaAlumno.get(i);
+                modelo.setValueAt(a.getCarne(), i, 0);
+                modelo.setValueAt(a.getNom(), i, 1);
+                modelo.setValueAt(a.getApe(), i, 2);
+                modelo.setValueAt(a.getPass(), i, 3);
+            }
+        } catch (Exception e) {
+
         }
     }
 
@@ -47,6 +50,36 @@ public class ConsultaAlumno extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -115,16 +148,16 @@ public class ConsultaAlumno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       CrearAlumno alumno = new CrearAlumno();
-       alumno.setVisible(true);
-       this.dispose();
+        CrearAlumno alumno = new CrearAlumno();
+        alumno.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
             }
         });
     }

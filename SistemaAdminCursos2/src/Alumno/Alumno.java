@@ -12,6 +12,7 @@ public class Alumno {
     String pass;    
     Curso curso[];
     int tamañoCursos;
+    String nota;
 
     public Alumno() {
     }
@@ -23,6 +24,7 @@ public class Alumno {
         this.pass = pass;        
         this.curso = new Curso[5];
         this.tamañoCursos = 0;
+        this.nota = "0";
     }
 
     public static int buscar(String user, String contracena){
@@ -33,7 +35,7 @@ public class Alumno {
                 Util.getAlumno().setNom(listaAlumno.get(i).getNom());
                 Util.getAlumno().setCarne(listaAlumno.get(i).getCarne());                               
                 Util.getAlumno().setApe(listaAlumno.get(i).getApe());                               
-                                                               
+                Util.getAlumno().setPass(listaAlumno.get(i).getPass());
                 
                 return i;
             }
@@ -89,6 +91,16 @@ public class Alumno {
         this.tamañoCursos = tamañoCursos;
     }
 
+    public String getNota() {
+        return nota;
+    }
+
+    public void setNota(String nota) {
+        this.nota = nota;
+    }
+
+    
+    
     
 
     @Override

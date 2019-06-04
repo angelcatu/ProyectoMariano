@@ -276,37 +276,42 @@ public class CrearCurso extends javax.swing.JFrame {
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
 
-        Profesor profesor = buscarProfesor(selecProfe.getSelectedItem().toString());
+        if (TextNombre.getText().length() > 0 && TextHorarioFin.getText().length() > 0
+                && TextFin.getText().length() > 0 && TextHorarioInico.getText().length() > 0
+                && TextInicio.getText().length() > 0 && TextSeccion.getText().length() > 0) {
 
-        if (profesor != null) {
+            Profesor profesor = buscarProfesor(selecProfe.getSelectedItem().toString());
 
-            if (profesor.getIteradorCurso() != 3) {
-                                                
-                Curso curso = new Curso(Util.getIdCurso(), TextNombre.getText(), TextSeccion.getText(), TextInicio.getText(),
-                        TextFin.getText(), TextHorarioInico.getText(), TextHorarioFin.getText(), profesor);
-                listaCurso.add(curso);
-                
-                Util.setIdCurso(Util.getIdCurso()+1);
-               
+            if (profesor != null) {
 
-                TextId.setText("");
-                TextNombre.setText("");
-                TextSeccion.setText("");
-                TextInicio.setText("");
-                TextFin.setText("");
-                TextHorarioInico.setText("");
-                TextHorarioFin.setText("");
+                if (profesor.getIteradorCurso() != 3) {
 
-                asignarCursoAProfesorEncontrado(profesor, curso, false);
+                    Curso curso = new Curso(Util.getIdCurso(), TextNombre.getText(), TextSeccion.getText(), TextInicio.getText(),
+                            TextFin.getText(), TextHorarioInico.getText(), TextHorarioFin.getText(), profesor);
+                    listaCurso.add(curso);
+
+                    Util.setIdCurso(Util.getIdCurso() + 1);
+
+                    TextId.setText("");
+                    TextNombre.setText("");
+                    TextSeccion.setText("");
+                    TextInicio.setText("");
+                    TextFin.setText("");
+                    TextHorarioInico.setText("");
+                    TextHorarioFin.setText("");
+
+                    asignarCursoAProfesorEncontrado(profesor, curso, false);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "El profesor ya tiene cargados 3 cursos en su horario");
+                }
 
             } else {
-                JOptionPane.showMessageDialog(null, "El profesor ya tiene cargados 3 cursos en su horario");
+                JOptionPane.showMessageDialog(null, "El profesor no existe");
             }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "El profesor no existe");
-        }
         //selecProfe.addActionListener((ActionListener) lista);
+
+        }
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnsalirActionPerformed
@@ -498,7 +503,10 @@ public class CrearCurso extends javax.swing.JFrame {
                     || !hora_inicio.equals("") || !hora_fin.equals("")
                     || !profesor.equals("")) {
 
-                listarCurso(id, nombre, seccion, fecha_inicio, fecha_fin, hora_inicio, hora_fin, profesor);
+                listarCurso(id.replace("\"", ""), nombre.replace("\"", ""),
+                        seccion.replace("\"", ""), fecha_inicio.replace("\"", ""),
+                        fecha_fin.replace("\"", ""), hora_inicio.replace("\"", ""),
+                        hora_fin.replace("\"", ""), profesor.replace("\"", ""));
 
             }
 
@@ -531,16 +539,7 @@ public class CrearCurso extends javax.swing.JFrame {
                 Curso curso = new Curso(Util.getIdCurso(), nombre, seccion, fecha_inicio, fecha_fin, hora_inicio, hora_fin, actualProfesor);
                 listaCurso.add(curso);
 
-                Util.setIdCurso(Util.getIdCurso()+1);
-                
-                this.id = "";
-                this.nombre = "";
-                this.seccion = "";
-                this.fecha_inicio = "";
-                this.fecha_fin = "";
-                this.hora_inicio = "";
-                this.hora_fin = "";
-                this.profesor = "";
+                Util.setIdCurso(Util.getIdCurso() + 1);
 
                 asignarCursoAProfesorEncontrado(actualProfesor, curso, true);
 
@@ -621,6 +620,7 @@ public class CrearCurso extends javax.swing.JFrame {
         for (int i = 0; i < listaCurso.size(); i++) {
             if (String.valueOf(listaCurso.get(i).getId()).equals(curso)) {
                 encontrado = listaCurso.get(i);
+                break;
             }
         }
 
@@ -640,17 +640,62 @@ public class CrearCurso extends javax.swing.JFrame {
 
     private void asignarCurso(Curso idCurso, Alumno alumno) {
 
-        Curso curso[] = new Curso[5];
+        int idAlumno = buscarAlumno(alumno.getCarne());
 
-        int numCursos = alumno.getTamañoCursos();
+        if (idAlumno != -1) {
 
-        //Se verifica si ya tiene asignado 5 cursos el estudiante
-        if (numCursos != 5) {
-            // curso[numCursos] = new Curso(idCurso.getNombre());     
-            // alumno.setCurso(curso);
-            //int actualizacion = numCursos + 1;
-            //alumno.setTamañoCursos(actualizacion);                    
+            //Obtenemos la posición del arreglo de cursos
+            int numCursos = listaAlumno.get(idAlumno).getTamañoCursos();
+
+            //Se verifica si ya tiene asignado 5 cursos el estudiante
+            if (numCursos != 5) {
+
+                for (int i = 0; i < listaCurso.size(); i++) {
+
+                    if (idCurso.getNombre().toString().equals(listaCurso.get(i).getNombre())) {
+
+                        if (listaCurso.get(i).getIteradorAlumno() != 10) {
+                            Curso cursoActual = listaCurso.get(i);
+                            Alumno alumnoActual[] = listaCurso.get(i).getAlumno();
+
+                            int iteradorAlumno = listaCurso.get(i).getIteradorAlumno();
+
+                            listaAlumno.get(idAlumno).getCurso()[numCursos] = new Curso(cursoActual.getId(),
+                                    cursoActual.getNombre(), cursoActual.getSeccion(), cursoActual.getInicio(),
+                                    cursoActual.getFin(), cursoActual.getHoraInicio(),
+                                    cursoActual.getHoraFin(), cursoActual.getProfesor());
+
+                            listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
+
+                            int actualizacion = numCursos + 1;
+
+                            listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
+
+                            //Comienzo de asignación de 10 alumnos al curso
+                            alumnoActual[iteradorAlumno] = listaAlumno.get(idAlumno);
+                            listaCurso.get(i).setAlumno(alumnoActual);
+
+                            int updateItAlumno = iteradorAlumno + 1;
+                            listaCurso.get(i).setIteradorAlumno(updateItAlumno);
+
+                        }
+                    }
+                }
+
+            }
         }
+
+    }
+
+    private int buscarAlumno(String carne) {
+        for (int i = 0; i < listaAlumno.size(); i++) {
+
+            if (listaAlumno.get(i).getCarne().equals(carne)) {
+
+                return i;
+            }
+        }
+        return -1;
     }
 
     private Profesor buscarProfesor(String profe) {
@@ -660,7 +705,7 @@ public class CrearCurso extends javax.swing.JFrame {
         for (int i = 0; i < lista.size(); i++) {
             if (lista.get(i).getUsuario().equals(profe)) {
                 profesor = lista.get(i);
-                break;
+                i = lista.size();
             }
         }
 

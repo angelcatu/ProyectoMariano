@@ -7,6 +7,7 @@ import Alumno.BuscarAlumno;
 import Alumno.Alumno;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import sistemaadmincursos2.Util;
 public class CrearAlumno extends javax.swing.JFrame {
 
     ArrayList<Alumno> listaAlumno = Util.listaAlumno;
-    
+
     public CrearAlumno() {
         initComponents();
         setLocationRelativeTo(null);
@@ -103,6 +104,11 @@ public class CrearAlumno extends javax.swing.JFrame {
         });
 
         btn_guardarAlumnos.setText("Guardar alumnos");
+        btn_guardarAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarAlumnosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,11 +191,11 @@ public class CrearAlumno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAActionPerformed
-                
-        if (txtCarneA.getText().length() == 8) {                        
-            
+
+        if (txtCarneA.getText().length() == 8) {
+
             listaAlumno.add(new Alumno(txtCarneA.getText(), txtNomA.getText(), txtApeA.getText(), txtPassA.getText()));
-            
+
             txtCarneA.setText("");
             txtNomA.setText("");
             txtApeA.setText("");
@@ -229,6 +235,11 @@ public class CrearAlumno extends javax.swing.JFrame {
     private void btn_cargarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargarAlumnosActionPerformed
         cargarArchivoAlumnos();
     }//GEN-LAST:event_btn_cargarAlumnosActionPerformed
+
+    private void btn_guardarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarAlumnosActionPerformed
+        guardarAlumno();
+
+    }//GEN-LAST:event_btn_guardarAlumnosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,7 +295,7 @@ public class CrearAlumno extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarArchivoAlumnos() {
-         String aux = "";
+        String aux = "";
         String texto = "";
 
         JFileChooser file = new JFileChooser();
@@ -299,48 +310,89 @@ public class CrearAlumno extends javax.swing.JFrame {
 
         if (seleccion == JFileChooser.APPROVE_OPTION) {
             File fichero = file.getSelectedFile();
-                                    
+
             insertarAlumnos(fichero.getPath());
-        
+
         }
     }
 
     private void insertarAlumnos(String path) {
-        
+
         //Se cargará con la librería JDOM
         SAXBuilder builder = new SAXBuilder();
         File archivo = new File(path);
-        
-        try{
+
+        try {
             Document document = (Document) builder.build(archivo);
-            
+
             Element rootNode = document.getRootElement();
-            
+
             //Lista de alumno que contiene todos los datos 
-            List list = rootNode.getChildren("alumno");                        
-            
-            for(int i = 0; i <  list.size(); i++ ){
-                
+            List list = rootNode.getChildren("alumno");
+
+            for (int i = 0; i < list.size(); i++) {
+
                 //Variable campo que nos servirá para obtener los datos del xml 
-                Element campo = (Element)list.get(i);
-                                                                                    
-                    String carne = campo.getChildTextTrim("carne");
-                    String nombre = campo.getChildTextTrim("nombre");
-                    String apellido = campo.getChildTextTrim("apellido");
-                    String password = campo.getChildTextTrim("password");
-                                                            
-                    listaAlumno.add(new Alumno(carne, nombre, apellido, password));
-                }
-            
-            
-            
+                Element campo = (Element) list.get(i);
+
+                String carne = campo.getChildTextTrim("carne");
+                String nombre = campo.getChildTextTrim("nombre");
+                String apellido = campo.getChildTextTrim("apellido");
+                String password = campo.getChildTextTrim("password");
+
+                listaAlumno.add(new Alumno(carne, nombre, apellido, password));
+            }
+
             JOptionPane.showMessageDialog(null, "Arhivo leído correctamente");
-                    
-                    
-        }catch(IOException e){
+
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "No se pudo leer el archivo");
-        }catch(JDOMException jdomex){
+        } catch (JDOMException jdomex) {
             JOptionPane.showMessageDialog(null, "Hubo un problema con Jdomex");
         }
+    }
+
+    private void guardarAlumno() {
+        try {
+            String nombre = "";
+            String contenido = "";
+            JFileChooser file = new JFileChooser();
+            file.showSaveDialog(this);
+
+            File guardar = file.getSelectedFile();
+
+            if (guardar != null) {
+                FileWriter archivo = new FileWriter(guardar + ".xml");
+
+                
+                contenido += "<?xml version='1.0' encoding='UTF-8'?\n"
+                        +"<alumnos>";
+                
+                for (int i = 0; i < listaAlumno.size(); i++) {
+                    contenido
+                            +="<alumno>"
+                            + "<carne>"+listaAlumno.get(i).getCarne()+"</carne>"
+                            + "<nombre>"+listaAlumno.get(i).getNom()+"</nombre>"
+                            + "<apellido>"+listaAlumno.get(i).getApe()+"</apellido>"
+                            + "<password>"+listaAlumno.get(i).getPass()+"</password>"                            
+                            + "</alumno>"
+                            +"\n";
+                                                                                         
+                }
+                
+                contenido += "</alumnos>";
+
+                archivo.write(contenido);
+
+                archivo.close();
+
+                JOptionPane.showMessageDialog(null, "Archivo guardado correctamente");
+
+            }
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo guardar el archivo correctamente");
+        }
+
     }
 }

@@ -21,28 +21,32 @@ public class ConsultaCurso extends javax.swing.JFrame {
     }
 
     private void llenartabla() {
-        TableModel modelo = jTable1.getModel();
-        int d = 0;
-        for (int i = 0; i < lista.size(); i++) {
-            if (profesor.getUsuario().equals(lista.get(i).getUsuario())) {
+        try {
+            TableModel modelo = jTable1.getModel();
+            int d = 0;
+            for (int i = 0; i < lista.size(); i++) {
+                if (profesor.getUsuario().equals(lista.get(i).getUsuario())) {
 
-                Curso curso[] = lista.get(i).getCurso();
-                int iterador = 0;
+                    Curso curso[] = lista.get(i).getCurso();
+                    int iterador = 0;
 
-                do {
+                    do {
 
-                    modelo.setValueAt(curso[iterador].getId(), d, 0);
-                    modelo.setValueAt(curso[iterador].getNombre(), d, 1);
-                    modelo.setValueAt(curso[iterador].getSeccion(), d, 2);
-                    modelo.setValueAt(curso[iterador].getInicio(), d, 3);
-                    modelo.setValueAt(curso[iterador].getFin(), d, 4);
-                    modelo.setValueAt(curso[iterador].getHoraInicio(), d, 5);
-                    modelo.setValueAt(curso[iterador].getHoraFin(), d, 6);
-                    d++;
+                        modelo.setValueAt(curso[iterador].getId(), d, 0);
+                        modelo.setValueAt(curso[iterador].getNombre(), d, 1);
+                        modelo.setValueAt(curso[iterador].getSeccion(), d, 2);
+                        modelo.setValueAt(curso[iterador].getInicio(), d, 3);
+                        modelo.setValueAt(curso[iterador].getFin(), d, 4);
+                        modelo.setValueAt(curso[iterador].getHoraInicio(), d, 5);
+                        modelo.setValueAt(curso[iterador].getHoraFin(), d, 6);
+                        d++;
 
-                    iterador++;
-                } while (iterador != lista.get(i).getIteradorCurso());                                                      
+                        iterador++;
+                    } while (iterador != lista.get(i).getIteradorCurso());
+                }
             }
+        } catch (Exception e) {
+
         }
     }
 
@@ -59,6 +63,35 @@ public class ConsultaCurso extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
