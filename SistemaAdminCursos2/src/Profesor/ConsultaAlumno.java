@@ -169,6 +169,7 @@ public class ConsultaAlumno extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(254, 254, 254));
         jLabel3.setText("Instrucciones: Seleccionar la fila y presione el botón Ingresar nota para actualizar");
 
         jButton2.setText("Descargar");
