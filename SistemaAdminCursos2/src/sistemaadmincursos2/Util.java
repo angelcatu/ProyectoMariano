@@ -15,6 +15,8 @@ public class Util {
     public static Alumno alumno = new Alumno();
     
     
+    public static int idCurso = 1;
+    
     public static int numCursosAsignado = 0;
     public static ArrayList<AsignacionMasiva> asignacionMasiva = new ArrayList<>();
 
@@ -25,6 +27,16 @@ public class Util {
     public static void setAlumno(Alumno alumno) {
         Util.alumno = alumno;
     }
+
+    public static int getIdCurso() {
+        return idCurso;
+    }
+
+    public static void setIdCurso(int idCurso) {
+        Util.idCurso = idCurso;
+    }
+    
+    
     
     
     

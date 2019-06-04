@@ -1,5 +1,6 @@
 package Profesor;
 
+import Curso.Curso;
 import javax.swing.JTextField;
 import sistemaadmincursos2.Util;
 import static sistemaadmincursos2.Util.lista;
@@ -8,7 +9,9 @@ public class Profesor {
     public String usuario;
     public String nombre;
     public String apellido;
-    public String password;   
+    public String password; 
+    private Curso[] curso;
+    private int iteradorCurso;
 
     public Profesor() {
     }
@@ -18,6 +21,10 @@ public class Profesor {
         this.nombre = nombre;
         this.apellido = apellido;
         this.password = password;
+        this.iteradorCurso = 0;
+        
+        //Servirá para asignar un máximo de 3 cursos a cada profesor
+        this.curso = new Curso[3];
     }
     public static int buscar(String user, String contracena){
         for (int i = 0; i < lista.size(); i++) {
@@ -67,6 +74,24 @@ public class Profesor {
     public String toString() {
         return usuario ;
     }
+
+    public Curso[] getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso[] curso) {
+        this.curso = curso;
+    }
+
+    public int getIteradorCurso() {
+        return iteradorCurso;
+    }
+
+    public void setIteradorCurso(int iteradorCurso) {
+        this.iteradorCurso = iteradorCurso;
+    }
+    
+    
     
     
 

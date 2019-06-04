@@ -206,20 +206,40 @@ public class BuscarCurso extends javax.swing.JFrame {
 
     private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
         if (curso != null) {
-            curso.setNombre(TextNombre.getText());
-            curso.setSeccion(TextSeccion.getText());
-            curso.setInicio(TextInicio.getText());
-            curso.setFin(TextFin.getText());
-            curso.setHoraInicio(TextHorarioInico.getText());
-            curso.setHoraFin(TextHorarioFin.getText());
-            curso.setProfesor(selecProfe.getSelectedItem().toString());
 
-            JOptionPane.showMessageDialog(this, "Curso modificado.");
+            Profesor profe = buscarProfesor(selecProfe.getSelectedItem().toString());
+
+            if (profe.getIteradorCurso() != 3) {
+                curso.setNombre(TextNombre.getText());
+                curso.setSeccion(TextSeccion.getText());
+                curso.setInicio(TextInicio.getText());
+                curso.setFin(TextFin.getText());
+                curso.setHoraInicio(TextHorarioInico.getText());
+                curso.setHoraFin(TextHorarioFin.getText());
+                curso.setProfesor(profe);
+
+                JOptionPane.showMessageDialog(this, "Curso modificado.");
+            }else{
+                JOptionPane.showMessageDialog(this, "No se puede modificar porque el profesor ya tiene asignado 3 cursos");
+            }
         }
     }//GEN-LAST:event_BtnModificarActionPerformed
 
+    private Profesor buscarProfesor(String profe) {
+        Profesor profesor = null;
+
+        for (int i = 0; i < lista.size(); i++) {
+            if (profe.equals(lista.get(i).getUsuario())) {
+                profesor = lista.get(i);
+            }
+        }
+
+        return profesor;
+    }
+
+
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
-        int idBusqueda =Integer.parseInt(TextId.getText());
+        int idBusqueda = Integer.parseInt(TextId.getText());
 
         curso = buscarCurso(idBusqueda);
 
@@ -229,7 +249,8 @@ public class BuscarCurso extends javax.swing.JFrame {
             TextInicio.setText(curso.getInicio());
             TextFin.setText(curso.getFin());
             TextHorarioInico.setText(curso.getHoraInicio());
-            selecProfe.setSelectedItem(curso.getProfesor());
+            TextHorarioFin.setText(curso.getHoraFin());
+            selecProfe.setSelectedItem(curso.getProfesor().getUsuario());
         } else {
             JOptionPane.showMessageDialog(this, "Curso no existente.");
         }
@@ -246,7 +267,7 @@ public class BuscarCurso extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnsalirActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-         if(curso!=null){
+        if (curso != null) {
             int indice = listaCurso.indexOf(curso);
             listaCurso.remove(indice);
             JOptionPane.showMessageDialog(this, "Curso eliminado");
@@ -257,7 +278,8 @@ public class BuscarCurso extends javax.swing.JFrame {
         String di = null;
         for (int i = 0; i < listaCurso.size(); i++) {
             Curso c = listaCurso.get(i);
-            if (c.id.equals(String.valueOf(id))) {
+
+            if (c.getId() == id) {
                 return c;
             }
         }

@@ -1,21 +1,26 @@
 package Curso;
 
+import Alumno.Alumno;
+import Profesor.Profesor;
+
 public class Curso {
 
-    public String id;
+    public int id;
     public String nombre;
     public String seccion;
     public String inicio;
     public String fin;
     public String horaInicio;
     public String horaFin;
-    public String profesor;
-    public String nota;
+    public Profesor profesor;
+    public String nota;    
+    
+    private Alumno alumno[];
     
     public Curso() {
     }
 
-    public Curso(String id, String nombre, String seccion, String inicio, String fin, String horaInicio, String horaFin, String profesor) {
+    public Curso(int id, String nombre, String seccion, String inicio, String fin, String horaInicio, String horaFin, Profesor profesor) {
         this.id = id;
         this.nombre = nombre;
         this.seccion = seccion;
@@ -25,13 +30,22 @@ public class Curso {
         this.horaFin = horaFin;
         this.profesor = profesor;
         this.nota = "0";
+        
+        
+        this.alumno = new Alumno[10];
+        
     }
+    
 
-    public String getId() {
+    
+    
+    
+    
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -83,11 +97,11 @@ public class Curso {
         this.horaFin = horaFin;
     }
 
-    public String getProfesor() {
+    public Profesor getProfesor() {
         return profesor;
     }
 
-    public void setProfesor(String profesor) {
+    public void setProfesor(Profesor profesor) {
         this.profesor = profesor;
     }
 
@@ -105,6 +119,15 @@ public class Curso {
     public String toString() {
         return nombre;
     }
+
+    public Alumno[] getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno[] alumno) {
+        this.alumno = alumno;
+    }
+    
     
     
     

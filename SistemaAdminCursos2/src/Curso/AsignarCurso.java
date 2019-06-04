@@ -16,13 +16,14 @@ public class AsignarCurso extends javax.swing.JFrame {
     public AsignarCurso() {
         initComponents();
         ingresoAlumno();
+        
         llenartabla();
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.gray);
     }
 
     public void ingresoAlumno() {
-        selecCurso.setModel(new DefaultComboBoxModel(listaCurso.toArray()));
+        selecCurso.setModel(new DefaultComboBoxModel(listaCurso.toArray()));        
     }
 
     private void llenartabla() {
@@ -45,10 +46,10 @@ public class AsignarCurso extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         selecCurso = new javax.swing.JComboBox<String>();
-        TextId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         BtnCurso = new javax.swing.JButton();
+        textCarne = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,12 +101,6 @@ public class AsignarCurso extends javax.swing.JFrame {
             }
         });
 
-        TextId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextIdActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Carne");
 
         jLabel3.setText("Curso");
@@ -134,9 +129,9 @@ public class AsignarCurso extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(62, 62, 62)
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(TextId, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textCarne, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(selecCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -152,13 +147,12 @@ public class AsignarCurso extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(selecCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TextId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(BtnCurso))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selecCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(BtnCurso)
+                    .addComponent(jLabel2)
+                    .addComponent(textCarne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -175,7 +169,7 @@ public class AsignarCurso extends javax.swing.JFrame {
     String curso[];
 
     private void BtnCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCursoActionPerformed
-        String carne = TextId.getText();
+        String carne = textCarne.getText().toString();
 
         int idAlumno = buscarAlumno(carne);
 
@@ -215,10 +209,6 @@ public class AsignarCurso extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_BtnCursoActionPerformed
-
-    private void TextIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextIdActionPerformed
-
-    }//GEN-LAST:event_TextIdActionPerformed
 
     private void selecCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecCursoActionPerformed
         // TODO add your handling code here:
@@ -277,7 +267,6 @@ public class AsignarCurso extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCurso;
-    private javax.swing.JTextField TextId;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -285,5 +274,6 @@ public class AsignarCurso extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> selecCurso;
+    private javax.swing.JTextField textCarne;
     // End of variables declaration//GEN-END:variables
 }

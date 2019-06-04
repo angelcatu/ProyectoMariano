@@ -275,18 +275,37 @@ public class CrearCurso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-                                        
-        listaCurso.add(new Curso(TextId.getText(), TextNombre.getText(), TextSeccion.getText(), TextInicio.getText(),
-        TextFin.getText(), TextHorarioInico.getText(), TextHorarioFin.getText(), selecProfe.getSelectedItem().toString()));
 
-        TextId.setText("");
-        TextNombre.setText("");
-        TextSeccion.setText("");
-        TextInicio.setText("");
-        TextFin.setText("");
-        TextHorarioInico.setText("");
-        TextHorarioFin.setText("");
-        
+        Profesor profesor = buscarProfesor(selecProfe.getSelectedItem().toString());
+
+        if (profesor != null) {
+
+            if (profesor.getIteradorCurso() != 3) {
+                                                
+                Curso curso = new Curso(Util.getIdCurso(), TextNombre.getText(), TextSeccion.getText(), TextInicio.getText(),
+                        TextFin.getText(), TextHorarioInico.getText(), TextHorarioFin.getText(), profesor);
+                listaCurso.add(curso);
+                
+                Util.setIdCurso(Util.getIdCurso()+1);
+               
+
+                TextId.setText("");
+                TextNombre.setText("");
+                TextSeccion.setText("");
+                TextInicio.setText("");
+                TextFin.setText("");
+                TextHorarioInico.setText("");
+                TextHorarioFin.setText("");
+
+                asignarCursoAProfesorEncontrado(profesor, curso, false);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "El profesor ya tiene cargados 3 cursos en su horario");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "El profesor no existe");
+        }
         //selecProfe.addActionListener((ActionListener) lista);
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
@@ -504,17 +523,30 @@ public class CrearCurso extends javax.swing.JFrame {
 
     private void listarCurso(String id, String nombre, String seccion, String fecha_inicio, String fecha_fin, String hora_inicio, String hora_fin, String profesor) {
 
-        Curso curso = new Curso(id, nombre, seccion, fecha_inicio, fecha_fin, hora_inicio, hora_fin, profesor);
-        listaCurso.add(curso);
+        Profesor actualProfesor = buscarProfesor(profesor);
 
-        id = "";
-        nombre = "";
-        seccion = "";
-        fecha_inicio = "";
-        fecha_fin = "";
-        hora_inicio = "";
-        hora_fin = "";
-        profesor = "";
+        if (actualProfesor != null) {
+
+            if (actualProfesor.getIteradorCurso() != 3) {
+                Curso curso = new Curso(Util.getIdCurso(), nombre, seccion, fecha_inicio, fecha_fin, hora_inicio, hora_fin, actualProfesor);
+                listaCurso.add(curso);
+
+                Util.setIdCurso(Util.getIdCurso()+1);
+                
+                this.id = "";
+                this.nombre = "";
+                this.seccion = "";
+                this.fecha_inicio = "";
+                this.fecha_fin = "";
+                this.hora_inicio = "";
+                this.hora_fin = "";
+                this.profesor = "";
+
+                asignarCursoAProfesorEncontrado(actualProfesor, curso, true);
+
+            }
+
+        }
 
     }
 
@@ -549,19 +581,18 @@ public class CrearCurso extends javax.swing.JFrame {
             entradaAlumno.next();
 
             while (entradaAlumno.hasNext()) {
-                
+
                 datosAlumnos = entradaAlumno.next();
                 valoresAlumnos = datosAlumnos.split("#");
 
                 asignacionMasiva.add(new AsignacionMasiva(valoresAlumnos[0], valoresAlumnos[1]));
-                
-                
+
                 asignarEstudianteACurso(valoresAlumnos[0], valoresAlumnos[1]);
-                                
+
             }
-            
+
             entradaAlumno.close();
-            
+
             JOptionPane.showMessageDialog(null, "Archivo cargado existosamente");
 
         } catch (FileNotFoundException e) {
@@ -570,55 +601,93 @@ public class CrearCurso extends javax.swing.JFrame {
     }
 
     private void asignarEstudianteACurso(String curso, String carne_estudiante) {
-        
+
         Curso idCurso = buscarCurso(curso);
-        
-        if(idCurso != null){
+
+        if (idCurso != null) {
             Alumno alumno = buscarEstudiante(carne_estudiante);
-            
-            if(alumno != null){
+
+            if (alumno != null) {
                 asignarCurso(idCurso, alumno);
             }
         }
-        
+
     }
 
-    private Curso buscarCurso(String curso) {     
-        
+    private Curso buscarCurso(String curso) {
+
         Curso encontrado = null;
-        
+
         for (int i = 0; i < listaCurso.size(); i++) {
-            if(listaCurso.get(i).getId().equals(curso)){
+            if (String.valueOf(listaCurso.get(i).getId()).equals(curso)) {
                 encontrado = listaCurso.get(i);
             }
         }
-        
+
         return encontrado;
     }
 
     private Alumno buscarEstudiante(String carne_estudiante) {
         Alumno encontrado = null;
-        
+
         for (int i = 0; i < listaAlumno.size(); i++) {
-            if(listaAlumno.get(i).getCarne().equals(carne_estudiante)){
+            if (listaAlumno.get(i).getCarne().equals(carne_estudiante)) {
                 encontrado = listaAlumno.get(i);
             }
-        }        
+        }
         return encontrado;
-    }        
+    }
 
     private void asignarCurso(Curso idCurso, Alumno alumno) {
-        
+
         Curso curso[] = new Curso[5];
-        
-         int numCursos = alumno.getTamañoCursos();                
-                
-                //Se verifica si ya tiene asignado 5 cursos el estudiante
-                if(numCursos != 5){                                                            
-                   // curso[numCursos] = new Curso(idCurso.getNombre());     
-                   // alumno.setCurso(curso);
-                    //int actualizacion = numCursos + 1;
-                    //alumno.setTamañoCursos(actualizacion);                    
-                }                                          
+
+        int numCursos = alumno.getTamañoCursos();
+
+        //Se verifica si ya tiene asignado 5 cursos el estudiante
+        if (numCursos != 5) {
+            // curso[numCursos] = new Curso(idCurso.getNombre());     
+            // alumno.setCurso(curso);
+            //int actualizacion = numCursos + 1;
+            //alumno.setTamañoCursos(actualizacion);                    
+        }
+    }
+
+    private Profesor buscarProfesor(String profe) {
+
+        Profesor profesor = null;
+
+        for (int i = 0; i < lista.size(); i++) {
+            if (lista.get(i).getUsuario().equals(profe)) {
+                profesor = lista.get(i);
+                break;
+            }
+        }
+
+        return profesor;
+    }
+
+    private void asignarCursoAProfesorEncontrado(Profesor profesor, Curso curso, boolean masiva) {
+
+        for (int i = 0; i < lista.size(); i++) {
+            if (profesor.getUsuario().equals(lista.get(i).getUsuario())) {
+
+                Curso[] arregloCursos = lista.get(i).getCurso();
+                int iterador = lista.get(i).getIteradorCurso();
+
+                arregloCursos[iterador] = curso;
+                lista.get(i).setCurso(arregloCursos);
+
+                int actualizacion = iterador + 1;
+
+                lista.get(i).setIteradorCurso(actualizacion);
+
+                //Variable masiva para saber mostrar mensaje o no cuando se asigna 1 a 1 
+                if (!masiva) {
+                    JOptionPane.showMessageDialog(null, "El profesor tiene aún " + (3 - lista.get(i).getIteradorCurso()) + " cursos disponibles");
+                }
+            }
+        }
+
     }
 }
