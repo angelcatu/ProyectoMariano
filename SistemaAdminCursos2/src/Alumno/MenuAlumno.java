@@ -21,7 +21,7 @@ public class MenuAlumno extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.gray);
         txtCarne.setEditable(false);
         txtNombre.setEditable(false);
-        
+                        
         calcularPromedioEstudiante(alumno.getCarne());
 
     }

@@ -30,16 +30,22 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
     private void llenartabla() {
         try {
             TableModel modelo = jTable1.getModel();
+            int indice = 0;
             for (int i = 0; i < listaCurso.size(); i++) {
                 curso = listaCurso.get(i);
-                modelo.setValueAt(curso.getId(), i, 0);
-                modelo.setValueAt(curso.getNombre(), i, 1);
-                modelo.setValueAt(curso.getSeccion(), i, 2);
-                modelo.setValueAt(curso.getInicio(), i, 3);
-                modelo.setValueAt(curso.getFin(), i, 4);
-                modelo.setValueAt(curso.getHoraInicio(), i, 5);
-                modelo.setValueAt(curso.getHoraFin(), i, 6);
-                modelo.setValueAt(curso.getProfesor(), i, 7);
+
+                if (!yaEstaAsignado(curso)) {
+                    modelo.setValueAt(curso.getId(), indice, 0);
+                    modelo.setValueAt(curso.getNombre(), indice, 1);
+                    modelo.setValueAt(curso.getSeccion(), indice, 2);
+                    modelo.setValueAt(curso.getInicio(), indice, 3);
+                    modelo.setValueAt(curso.getFin(), indice, 4);
+                    modelo.setValueAt(curso.getHoraInicio(), indice, 5);
+                    modelo.setValueAt(curso.getHoraFin(), indice, 6);
+                    modelo.setValueAt(curso.getProfesor(), indice, 7);
+                    
+                    indice++;
+                }
             }
         } catch (Exception e) {
             System.out.println("erro de asignacion de curso alumno en alumno:" + e.getMessage());
@@ -333,12 +339,17 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
         for (int i = 0; i < curso.length; i++) {
             if (curso[i] != null) {
                 if (cursoActual.getNombre().equals(curso[i].getNombre())) {
-
-                    System.out.println("Curso actual : " + cursoActual.getNombre());
-                    System.out.println("Cursos por alumno : " + curso[i].getNombre());
-
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    private boolean yaEstaAsignado(Curso curso) {
+        for (int i = 0; i < listaNotas.size(); i++) {
+            if(curso.getId() == listaNotas.get(i).getCurso().getId()){
+                return true;
             }
         }
         return false;
