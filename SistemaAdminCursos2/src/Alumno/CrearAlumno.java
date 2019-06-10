@@ -194,14 +194,18 @@ public class CrearAlumno extends javax.swing.JFrame {
 
         if (txtCarneA.getText().length() == 8) {
 
-            listaAlumno.add(new Alumno(txtCarneA.getText(), txtNomA.getText(), txtApeA.getText(), txtPassA.getText()));
+            if (!validarCarne(txtCarneA.getText())) {
+                listaAlumno.add(new Alumno(txtCarneA.getText(), txtNomA.getText(), txtApeA.getText(), txtPassA.getText()));
 
-            txtCarneA.setText("");
-            txtNomA.setText("");
-            txtApeA.setText("");
-            txtPassA.setText("");
+                txtCarneA.setText("");
+                txtNomA.setText("");
+                txtApeA.setText("");
+                txtPassA.setText("");
 
-            JOptionPane.showMessageDialog(this, "Alumno agregado exitosamente");
+                JOptionPane.showMessageDialog(this, "Alumno agregado exitosamente");
+            }else{
+                JOptionPane.showMessageDialog(null, "El alumno con ese carné ya existe");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "El carne debe ser de 8 caracteres alfanumericos");
         }
@@ -364,22 +368,21 @@ public class CrearAlumno extends javax.swing.JFrame {
             if (guardar != null) {
                 FileWriter archivo = new FileWriter(guardar + ".xml");
 
-                
                 contenido += "<?xml version='1.0' encoding='UTF-8'?\n"
-                        +"<alumnos>";
-                
+                        + "<alumnos>";
+
                 for (int i = 0; i < listaAlumno.size(); i++) {
                     contenido
-                            +="<alumno>"
-                            + "<carne>"+listaAlumno.get(i).getCarne()+"</carne>"
-                            + "<nombre>"+listaAlumno.get(i).getNom()+"</nombre>"
-                            + "<apellido>"+listaAlumno.get(i).getApe()+"</apellido>"
-                            + "<password>"+listaAlumno.get(i).getPass()+"</password>"                            
+                            += "<alumno>"
+                            + "<carne>" + listaAlumno.get(i).getCarne() + "</carne>"
+                            + "<nombre>" + listaAlumno.get(i).getNom() + "</nombre>"
+                            + "<apellido>" + listaAlumno.get(i).getApe() + "</apellido>"
+                            + "<password>" + listaAlumno.get(i).getPass() + "</password>"
                             + "</alumno>"
-                            +"\n";
-                                                                                         
+                            + "\n";
+
                 }
-                
+
                 contenido += "</alumnos>";
 
                 archivo.write(contenido);
@@ -394,5 +397,14 @@ public class CrearAlumno extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se pudo guardar el archivo correctamente");
         }
 
+    }
+
+    private boolean validarCarne(String carne) {
+        for (int i = 0; i < listaAlumno.size(); i++) {
+            if(carne.equals(listaAlumno.get(i).getCarne())){
+                return true;
+            }
+        }        
+        return false;
     }
 }

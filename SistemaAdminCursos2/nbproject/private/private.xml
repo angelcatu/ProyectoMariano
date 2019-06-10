@@ -4,7 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/angel/Java/ProyectoUMG/SistemaAdminCursos2/src/Profesor/ConsultaAlumno.java</file>
+            <file>file:/home/angel/Java/ProyectoUMG/SistemaAdminCursos2/src/Alumno/MenuAlumno.java</file>
             <file>file:/home/angel/Java/ProyectoUMG/SistemaAdminCursos2/src/Alumno/AsignarCursoAlumno.java</file>
+            <file>file:/home/angel/Java/ProyectoUMG/SistemaAdminCursos2/src/Curso/AsignarCurso.java</file>
             <file>file:/home/angel/Java/ProyectoUMG/SistemaAdminCursos2/src/Alumno/ConsultarCursoAlumno.java</file>
         </group>
     </open-files>

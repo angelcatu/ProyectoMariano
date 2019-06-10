@@ -3,6 +3,7 @@ package sistemaadmincursos2;
 import Alumno.Alumno;
 import Curso.AsignacionMasiva;
 import Curso.Curso;
+import Notas.Nota;
 import Profesor.Profesor;
 import java.util.ArrayList;
 
@@ -11,6 +12,8 @@ public class Util {
     public static ArrayList<Profesor> lista = new ArrayList<>();
     public static ArrayList<Alumno> listaAlumno = new ArrayList<>();
     public static ArrayList<Curso> listaCurso = new ArrayList<>();
+    public static ArrayList<Nota> listaNotas = new ArrayList<>();
+    
     public static Profesor profesor = new Profesor();
     public static Alumno alumno = new Alumno();
     

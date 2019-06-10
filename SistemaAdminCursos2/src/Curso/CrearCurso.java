@@ -2,6 +2,7 @@ package Curso;
 
 import Admin.Menu;
 import Alumno.Alumno;
+import Notas.Nota;
 import Profesor.Profesor;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -30,8 +31,10 @@ public class CrearCurso extends javax.swing.JFrame {
 
     ArrayList<Profesor> lista = Util.lista;
     ArrayList<Curso> listaCurso = Util.listaCurso;
-    ArrayList<Alumno> listaAlumno = Util.listaAlumno;
+    ArrayList<Alumno> listaAlumno = Util.listaAlumno;        
     ArrayList<AsignacionMasiva> asignacionMasiva = Util.asignacionMasiva;
+    
+    ArrayList<Nota> listaNotas = Util.listaNotas;
 
     File fileAlumno;
     private Scanner entradaAlumno;
@@ -309,7 +312,7 @@ public class CrearCurso extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "El profesor no existe");
             }
-        //selecProfe.addActionListener((ActionListener) lista);
+            //selecProfe.addActionListener((ActionListener) lista);
 
         }
     }//GEN-LAST:event_BtnAgregarActionPerformed
@@ -658,25 +661,33 @@ public class CrearCurso extends javax.swing.JFrame {
                             Curso cursoActual = listaCurso.get(i);
                             Alumno alumnoActual[] = listaCurso.get(i).getAlumno();
 
-                            int iteradorAlumno = listaCurso.get(i).getIteradorAlumno();
+                            if (!cursoAsignado(cursoActual, listaAlumno.get(idAlumno).getCurso())) {
+                                int iteradorAlumno = listaCurso.get(i).getIteradorAlumno();
 
-                            listaAlumno.get(idAlumno).getCurso()[numCursos] = new Curso(cursoActual.getId(),
-                                    cursoActual.getNombre(), cursoActual.getSeccion(), cursoActual.getInicio(),
-                                    cursoActual.getFin(), cursoActual.getHoraInicio(),
-                                    cursoActual.getHoraFin(), cursoActual.getProfesor());
+                                listaAlumno.get(idAlumno).getCurso()[numCursos] = new Curso(cursoActual.getId(),
+                                        cursoActual.getNombre(), cursoActual.getSeccion(), cursoActual.getInicio(),
+                                        cursoActual.getFin(), cursoActual.getHoraInicio(),
+                                        cursoActual.getHoraFin(), cursoActual.getProfesor());
 
-                            listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
+                                listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
 
-                            int actualizacion = numCursos + 1;
+                                int actualizacion = numCursos + 1;
 
-                            listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
+                                listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
 
-                            //Comienzo de asignación de 10 alumnos al curso
-                            alumnoActual[iteradorAlumno] = listaAlumno.get(idAlumno);
-                            listaCurso.get(i).setAlumno(alumnoActual);
+                                //Comienzo de asignación de 10 alumnos al curso
+                                alumnoActual[iteradorAlumno] = listaAlumno.get(idAlumno);
+                                listaCurso.get(i).setAlumno(alumnoActual);
 
-                            int updateItAlumno = iteradorAlumno + 1;
-                            listaCurso.get(i).setIteradorAlumno(updateItAlumno);
+                                int updateItAlumno = iteradorAlumno + 1;
+                                listaCurso.get(i).setIteradorAlumno(updateItAlumno);
+                                
+                                
+                                //Crear nota para el alumno y curso
+                                Nota nota = new Nota(cursoActual, listaAlumno.get(idAlumno), "0");
+                                listaNotas.add(nota);
+                                
+                            }
 
                         }
                     }
@@ -734,5 +745,16 @@ public class CrearCurso extends javax.swing.JFrame {
             }
         }
 
+    }
+
+    private boolean cursoAsignado(Curso cursoActual, Curso[] curso) {
+        for (int i = 0; i < curso.length; i++) {
+            if(curso[i] != null){
+                if(cursoActual.getNombre().equals(curso[i].getNombre())){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

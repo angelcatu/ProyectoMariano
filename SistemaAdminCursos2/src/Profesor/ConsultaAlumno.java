@@ -2,6 +2,7 @@ package Profesor;
 
 import Alumno.Alumno;
 import Curso.Curso;
+import Notas.Nota;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,7 +18,8 @@ public class ConsultaAlumno extends javax.swing.JFrame {
     ArrayList<Alumno> listaAlumno = Util.listaAlumno;
     ArrayList<Curso> listaCurso = Util.listaCurso;
     ArrayList<Profesor> lista = Util.lista;
-    Alumno alumno = new Alumno();
+    ArrayList<Nota> listaNotas = Util.listaNotas;
+
     Profesor profesor = Util.profesor;
 
     public ConsultaAlumno() {
@@ -25,10 +27,6 @@ public class ConsultaAlumno extends javax.swing.JFrame {
         llenartabla();
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.gray);
-
-        for (int i = 0; i < listaAlumno.size(); i++) {
-
-        }
 
     }
 
@@ -38,32 +36,24 @@ public class ConsultaAlumno extends javax.swing.JFrame {
 
             TableModel modelo = jTable1.getModel();
 
-            int d = 0;
+            int ite = 0;
 
-            for (int j = 0; j < listaCurso.size(); j++) {
+            //Buscamos los curso que el profesor imparte
+            for (int i = 0; i < listaNotas.size(); i++) {
 
-                if (profesor.getUsuario().equals(listaCurso.get(j).getProfesor().getUsuario())) {
+                //Buscamos que cursos tiene el profesor actual con la listaNotas
+                if (profesor.getUsuario().equals(listaNotas.get(i).getCurso().getProfesor().getUsuario())) {
 
-                    Alumno alumno[] = listaCurso.get(j).getAlumno();
-                    int iterador = 0;
-
-                    if (alumno[iterador] != null) {
-                        do {
-
-                            modelo.setValueAt(alumno[iterador].getCarne(), d, 0);
-                            modelo.setValueAt(alumno[iterador].getNom(), d, 1);
-                            modelo.setValueAt(alumno[iterador].getApe(), d, 2);
-                            modelo.setValueAt(listaCurso.get(j).getNombre(), d, 3);
-                            modelo.setValueAt(alumno[iterador].getNota(), d, 4);
-                            d++;
-                            iterador++;
-
-                        } while (iterador != listaCurso.get(j).getIteradorAlumno());
-                    }
+                    //Como encontramos al profesor solo llamamos toda la información de la lista de notas porque
+                    //Curso, Alumno y nota están en la misma posición
+                    modelo.setValueAt(listaNotas.get(i).getAlumno().getCarne(), ite, 0);
+                    modelo.setValueAt(listaNotas.get(i).getAlumno().getNom(), ite, 1);
+                    modelo.setValueAt(listaNotas.get(i).getAlumno().getApe(), ite, 2);
+                    modelo.setValueAt(listaNotas.get(i).getCurso().getNombre(), ite, 3);
+                    modelo.setValueAt(listaNotas.get(i).getNota(), ite, 4);
+                    ite++;
                 }
-
             }
-
         } catch (Exception e) {
 
         }
@@ -79,7 +69,6 @@ public class ConsultaAlumno extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnNota = new javax.swing.JButton();
-        btnbuscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
@@ -162,13 +151,6 @@ public class ConsultaAlumno extends javax.swing.JFrame {
             }
         });
 
-        btnbuscar.setText("buscar nota");
-        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbuscarActionPerformed(evt);
-            }
-        });
-
         jLabel3.setForeground(new java.awt.Color(254, 254, 254));
         jLabel3.setText("Instrucciones: Seleccionar la fila y presione el botón Ingresar nota para actualizar");
 
@@ -193,9 +175,7 @@ public class ConsultaAlumno extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnNota))
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnbuscar)
-                        .addGap(18, 18, 18)
+                        .addGap(129, 129, 129)
                         .addComponent(jButton2)
                         .addGap(56, 56, 56)))
                 .addContainerGap())
@@ -218,7 +198,6 @@ public class ConsultaAlumno extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNota, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnbuscar)
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -234,8 +213,8 @@ public class ConsultaAlumno extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotaActionPerformed
-        if (alumno != null) {
-            //alumno.setNota(Integer.valueOf(txtNota.getText()));
+
+        try {
             int rowIndex = jTable1.getSelectedRow();
 
             String nombre = jTable1.getValueAt(rowIndex, 1).toString();
@@ -245,61 +224,27 @@ public class ConsultaAlumno extends javax.swing.JFrame {
 
             String nota = JOptionPane.showInputDialog(null, "Inserte la nota para el estudiante " + nombre + " " + apellido);
 
-            for (int j = 0; j < listaCurso.size(); j++) {
+            int numNota = Integer.valueOf(nota);
 
-                if (profesor.getUsuario().equals(listaCurso.get(j).getProfesor().getUsuario())) {
+            if (numNota >= 0 && numNota <= 100) {
+                for (int i = 0; i < listaNotas.size(); i++) {
 
-                    Alumno alumno[] = listaCurso.get(j).getAlumno();
+                    if (carne.equals(listaNotas.get(i).getAlumno().getCarne())
+                            && curso.equals(listaNotas.get(i).getCurso().getNombre())) {
 
-                    int iterador = 0;
+                        listaNotas.get(i).setNota(nota);
+                        jTable1.setValueAt(listaNotas.get(i).getNota(), rowIndex, 4);
+                    }
 
-                    /*
-                     do{
-                     int iteradorAlumno = 0;
-                     int iteradorCurso = 0;      
-                        
-                     do{
-                            
-                     JOptionPane.showMessageDialog(null, "El curso seleccionado es: " + curso);
-                            
-                     if(carne.equals(alumno[iteradorAlumno].getCarne())){
-                     JOptionPane.showConfirmDialog(null, "Carne a cambiar " + alumno[iteradorAlumno].getCarne());
-                     }
-                            
-                            
-                     if(curso.equals(alumno[iteradorAlumno].getCurso()[iteradorCurso].getNombre())){
-                     listaCurso.get(j).getAlumno()[iteradorAlumno].getCurso()[iteradorCurso].setNota(nota);
-                     JOptionPane.showMessageDialog(null, "La nota "+nota+" para "+listaCurso.get(j).getAlumno()[iteradorAlumno].getCarne());
-                     }
-                            
-                            
-                     JOptionPane.showMessageDialog(null, "Tamaño de listado de cursos "+alumno[iteradorAlumno].getCurso()[iteradorCurso].getIteradorAlumno());
-                            
-                     iteradorCurso++;
-                            
-                     }while(iteradorCurso != alumno[iteradorAlumno].getCurso()[iteradorCurso].getIteradorAlumno());                                                                                                
-                        
-                     iteradorAlumno++;
-                     iterador++;
-                     }while(iterador != listaCurso.get(j).getIteradorAlumno());
-                     */
                 }
-
+            }else{
+                JOptionPane.showMessageDialog(null, "La nota debe ser un número entre 0 y 100");
             }
 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Seleccionar una fila para insertar nota");
         }
-
     }//GEN-LAST:event_btnNotaActionPerformed
-
-    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
-
-        alumno = buscarAlumno("");
-        if (alumno != null) {
-            //txtNota.setText(String.valueOf(alumno.getNota()));
-        } else {
-            JOptionPane.showMessageDialog(this, "Alumno no existente.");
-        }
-    }//GEN-LAST:event_btnbuscarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         descargarArchivo();
@@ -327,7 +272,6 @@ public class ConsultaAlumno extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNota;
-    private javax.swing.JButton btnbuscar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -348,33 +292,22 @@ public class ConsultaAlumno extends javax.swing.JFrame {
             if (guardar != null) {
                 FileWriter archivo = new FileWriter(guardar + ".csv");
 
-                int d = 0;
-
-                for (int j = 0; j < listaCurso.size(); j++) {
-
-                    if (profesor.getUsuario().equals(listaCurso.get(j).getProfesor().getUsuario())) {
-
-                        Alumno alumno[] = listaCurso.get(j).getAlumno();
-                        int iterador = 0;
-
-                        if (alumno[iterador] != null) {
-                            do {
-
-                                contenido += alumno[iterador].getCarne() + ","
-                                        + alumno[iterador].getNom()+ ","
-                                        + alumno[iterador].getApe()+ ","
-                                        + listaCurso.get(j).getNombre()+","
-                                        +alumno[iterador].getNota()+"\n";
-                                
-                                d++;
-                                iterador++;
-
-                            } while (iterador != listaCurso.get(j).getIteradorAlumno());
-                        }
+                             
+                for (int i = 0; i < listaNotas.size(); i++) {
+                    if(profesor.getUsuario().equals(listaNotas.get(i).getCurso().getProfesor().getUsuario())){
+                        
+                        Alumno alumno = listaNotas.get(i).getAlumno();
+                        Curso curso = listaNotas.get(i).getCurso();
+                        
+                        contenido += alumno.getCarne() + ","
+                                + alumno.getNom() + ","
+                                + alumno.getApe()+ ","
+                                + curso.getNombre() + ","
+                                + listaNotas.get(i).getNota() + "\n";
+                        
                     }
-
                 }
-
+                  
                 archivo.write(contenido);
 
                 archivo.close();

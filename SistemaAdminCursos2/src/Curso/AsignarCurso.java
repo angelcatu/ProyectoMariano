@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import sistemaadmincursos2.Util;
 import Alumno.Alumno;
+import Notas.Nota;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
@@ -12,6 +13,7 @@ public class AsignarCurso extends javax.swing.JFrame {
 
     ArrayList<Alumno> listaAlumno = Util.listaAlumno;
     ArrayList<Curso> listaCurso = Util.listaCurso;
+    ArrayList<Nota> listaNotas = Util.listaNotas;
 
     public AsignarCurso() {
         initComponents();
@@ -220,34 +222,41 @@ public class AsignarCurso extends javax.swing.JFrame {
                 for (int i = 0; i < listaCurso.size(); i++) {
 
                     if (selecCurso.getSelectedItem().toString().equals(listaCurso.get(i).getNombre())) {
+                        
+                        System.out.println("Item seleccionado: " + selecCurso.getSelectedItem().toString());
 
                         if (listaCurso.get(i).getIteradorAlumno() != 10) {
+
                             Curso cursoActual = listaCurso.get(i);
                             Alumno alumnoActual[] = listaCurso.get(i).getAlumno();
 
-                            int iteradorAlumno = listaCurso.get(i).getIteradorAlumno();
+                            if (!cursoAsignado(cursoActual, listaAlumno.get(idAlumno).getCurso())) {
+                                int iteradorAlumno = listaCurso.get(i).getIteradorAlumno();
 
-                            listaAlumno.get(idAlumno).getCurso()[numCursos] = new Curso(cursoActual.getId(),
-                                    cursoActual.getNombre(), cursoActual.getSeccion(), cursoActual.getInicio(),
-                                    cursoActual.getFin(), cursoActual.getHoraInicio(),
-                                    cursoActual.getHoraFin(), cursoActual.getProfesor());
+                                listaAlumno.get(idAlumno).getCurso()[numCursos] = cursoActual;
 
-                            listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
+                                listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
 
-                            int actualizacion = numCursos + 1;
+                                int actualizacion = numCursos + 1;
 
-                            listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
+                                listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
 
-                            JOptionPane.showMessageDialog(null, "Curso asignado. Aún puedes asignarte " + (5 - actualizacion) + " cursos más");
+                                JOptionPane.showMessageDialog(null, "Curso asignado. Aún puedes asignarte " + (5 - actualizacion) + " cursos más");
 
-                            //Comienzo de asignación de 10 alumnos al curso
-                            alumnoActual[iteradorAlumno] = listaAlumno.get(idAlumno);
-                            listaCurso.get(i).setAlumno(alumnoActual);
+                                //Comienzo de asignación de 10 alumnos al curso
+                                alumnoActual[iteradorAlumno] = listaAlumno.get(idAlumno);
+                                listaCurso.get(i).setAlumno(alumnoActual);
 
-                            int updateItAlumno = iteradorAlumno + 1;
-                            listaCurso.get(i).setIteradorAlumno(updateItAlumno);
+                                int updateItAlumno = iteradorAlumno + 1;
+                                listaCurso.get(i).setIteradorAlumno(updateItAlumno);
 
-                            JOptionPane.showMessageDialog(null, "Alumno asignado al curso.  Aún hay " + (10 - updateItAlumno) + " cupos");
+                                //Crear nota para el alumno y curso                                
+                                listaNotas.add(new Nota(cursoActual, listaAlumno.get(idAlumno), "0"));
+
+                                JOptionPane.showMessageDialog(null, "Alumno asignado al curso.  Aún hay " + (10 - updateItAlumno) + " cupos");
+                            }else{
+                                JOptionPane.showMessageDialog(null, "Este alumno ya tiene asignado este curso");
+                            }
 
                         } else {
                             JOptionPane.showMessageDialog(null, "El curso está lleno, no se puede asignar más");
@@ -264,6 +273,7 @@ public class AsignarCurso extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_BtnCursoActionPerformed
+
 
     private void selecCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecCursoActionPerformed
         // TODO add your handling code here:
@@ -331,4 +341,17 @@ public class AsignarCurso extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> selecCurso;
     private javax.swing.JTextField textCarne;
     // End of variables declaration//GEN-END:variables
+
+    private boolean cursoAsignado(Curso curso, Curso[] cursoAsignado) {
+
+        for (int i = 0; i < cursoAsignado.length; i++) {
+
+            if (cursoAsignado[i] != null) {
+                if (curso.getNombre().equals(cursoAsignado[i].getNombre())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

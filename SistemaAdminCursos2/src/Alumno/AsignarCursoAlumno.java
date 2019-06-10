@@ -1,6 +1,7 @@
 package Alumno;
 
 import Curso.Curso;
+import Notas.Nota;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -15,11 +16,12 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
 
     ArrayList<Alumno> listaAlumno = Util.listaAlumno;
     ArrayList<Curso> listaCurso = Util.listaCurso;
+    ArrayList<Nota> listaNotas = Util.listaNotas;
     Alumno alumno;
     Curso curso = new Curso();
 
     public AsignarCursoAlumno() {
-        initComponents();        
+        initComponents();
         llenartabla();
         alumno = Util.getAlumno();
         TextId.setText(Util.getAlumno().getCarne());
@@ -44,8 +46,6 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
         }
 
     }
-
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -79,6 +79,7 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
             }
         });
 
+        TextId.setEditable(false);
         TextId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextIdActionPerformed(evt);
@@ -144,7 +145,7 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel4.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel4.setForeground(new java.awt.Color(1, 1, 1));
         jLabel4.setText("Intrucciones: para asignar un curso colóquese sobre la fila y presione el botón");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -163,31 +164,30 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(TextId, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(256, 256, 256)
-                                .addComponent(BtnCurso))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(129, 129, 129)
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(BtnCurso)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addGap(24, 24, 24)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4)
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(TextId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnCurso))
-                        .addGap(14, 14, 14)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(17, 17, 17))
+                    .addComponent(jLabel4)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(TextId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnCurso))
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -196,58 +196,72 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
     private void BtnCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCursoActionPerformed
         String carne = TextId.getText();
 
-        int idAlumno = buscarAlumno(carne);
-        if (idAlumno != -1) {
+        try {
+            int idAlumno = buscarAlumno(carne);
+            if (idAlumno != -1) {
 
-            int iteradorCursos = listaAlumno.get(idAlumno).getTamañoCursos();
+                int iteradorCursos = listaAlumno.get(idAlumno).getTamañoCursos();
 
-            if (iteradorCursos != 5) {
+                if (iteradorCursos != 5) {
 
-                int fila = jTable1.getSelectedRow();
-                String idCurso = jTable1.getValueAt(fila, 0).toString();
+                    int fila = jTable1.getSelectedRow();
+                    String idCurso = jTable1.getValueAt(fila, 0).toString();
 
-                for (int i = 0; i < listaCurso.size(); i++) {
+                    for (int i = 0; i < listaCurso.size(); i++) {
 
-                    if (idCurso.equals(String.valueOf(listaCurso.get(i).getId()))) {
+                        if (idCurso.equals(String.valueOf(listaCurso.get(i).getId()))) {
 
-                        if (listaCurso.get(i).getIteradorAlumno() != 10) {
-                            Curso cursoActual = listaCurso.get(i);
-                            Alumno alumnoActual[] = listaCurso.get(i).getAlumno();
+                            if (listaCurso.get(i).getIteradorAlumno() != 10) {
+                                Curso cursoActual = listaCurso.get(i);
+                                Alumno alumnoActual[] = listaCurso.get(i).getAlumno();
 
-                            int iterador = listaCurso.get(i).getIteradorAlumno();
+                                if (!cursoAsignado(cursoActual, listaAlumno.get(idAlumno).getCurso())) {
 
-                            listaAlumno.get(idAlumno).getCurso()[iteradorCursos] = cursoActual;
+                                    int iterador = listaCurso.get(i).getIteradorAlumno();
 
-                            listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
+                                    listaAlumno.get(idAlumno).getCurso()[iteradorCursos] = cursoActual;
 
-                            int actualizacion = iteradorCursos + 1;
+                                    listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
 
-                            listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
+                                    int actualizacion = iteradorCursos + 1;
 
-                            JOptionPane.showMessageDialog(null, "Curso asignado. Aún puedes asignarte " + (5 - actualizacion) + " cursos más");
+                                    listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
 
-                            //Comienzo de asignación de 10 alumnos al curso
-                            alumnoActual[iterador] = listaAlumno.get(idAlumno);
-                            listaCurso.get(i).setAlumno(alumnoActual);
+                                    JOptionPane.showMessageDialog(null, "Curso asignado. Aún puedes asignarte " + (5 - actualizacion) + " cursos más");
 
-                            int updateItAlumno = iterador + 1;
-                            listaCurso.get(i).setIteradorAlumno(updateItAlumno);
+                                    //Comienzo de asignación de 10 alumnos al curso
+                                    alumnoActual[iterador] = listaAlumno.get(idAlumno);
+                                    listaCurso.get(i).setAlumno(alumnoActual);
 
-                            JOptionPane.showMessageDialog(null, "Alumno asignado al curso.  Aún hay " + (10 - updateItAlumno) + " cupos");
+                                    int updateItAlumno = iterador + 1;
+                                    listaCurso.get(i).setIteradorAlumno(updateItAlumno);
 
-                        } else {
-                            JOptionPane.showMessageDialog(null, "El curso está lleno, no se puede asignar más");
+                                    //Crear nota para el alumno y curso
+                                    Nota nota = new Nota(cursoActual, listaAlumno.get(idAlumno), "0");
+                                    listaNotas.add(nota);
+
+                                    JOptionPane.showMessageDialog(null, "Alumno asignado al curso.  Aún hay " + (10 - updateItAlumno) + " cupos");
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Ya te has asignado este curso");
+                                }
+
+                            } else {
+                                JOptionPane.showMessageDialog(null, "El curso está lleno, no se puede asignar más");
+                            }
                         }
                     }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No puedes asignarte más de 5 cursos");
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "No puedes asignarte más de 5 cursos");
+                JOptionPane.showMessageDialog(this, "Alumno no existente.");
             }
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Alumno no existente.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Seleccionar una fila para poder asignarte");
         }
+
     }//GEN-LAST:event_BtnCursoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -314,4 +328,20 @@ public class AsignarCursoAlumno extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private boolean cursoAsignado(Curso cursoActual, Curso[] curso) {
+        for (int i = 0; i < curso.length; i++) {
+            if (curso[i] != null) {
+                if (cursoActual.getNombre().equals(curso[i].getNombre())) {
+
+                    System.out.println("Curso actual : " + cursoActual.getNombre());
+                    System.out.println("Cursos por alumno : " + curso[i].getNombre());
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }

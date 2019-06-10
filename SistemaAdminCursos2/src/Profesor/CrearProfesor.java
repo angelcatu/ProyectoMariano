@@ -200,15 +200,21 @@ public class CrearProfesor extends javax.swing.JFrame {
         if (txtUsuario.getText().length() > 0 && txtNombre.getText().length() > 0
                 && txtApellido.getText().length() > 0 && txtPassword.getText().length() > 0) {
 
-            lista.add(new Profesor(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtPassword.getText()));
+            if (!validarProfesor(txtUsuario.getText())) {
+                lista.add(new Profesor(txtUsuario.getText(), txtNombre.getText(), txtApellido.getText(), txtPassword.getText()));
 
-            txtUsuario.setText("");
-            txtNombre.setText("");
-            txtApellido.setText("");
-            txtPassword.setText("");
+                txtUsuario.setText("");
+                txtNombre.setText("");
+                txtApellido.setText("");
+                txtPassword.setText("");
 
-            //Mensaje de dialogo
-            JOptionPane.showMessageDialog(this, "Profesor agregado exitosamente");
+                //Mensaje de dialogo
+                JOptionPane.showMessageDialog(this, "Profesor agregado exitosamente");
+            }else{
+                JOptionPane.showMessageDialog(null, "El profesor con ese identificador ya existe");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Llenar todos los compos para registarar profesor");
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -375,5 +381,14 @@ public class CrearProfesor extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "No se pudo guardar el archivo correctamente");
         }
+    }
+
+    private boolean validarProfesor(String idProfesor) {
+        for (int i = 0; i < lista.size(); i++) {
+            if(idProfesor.equals(lista.get(i).getUsuario())){
+                return true;
+            }
+        }
+        return false;
     }
 }

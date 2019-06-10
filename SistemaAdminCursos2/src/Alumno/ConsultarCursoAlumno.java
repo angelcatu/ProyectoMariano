@@ -6,6 +6,7 @@
 package Alumno;
 
 import Curso.Curso;
+import Notas.Nota;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileWriter;
@@ -24,6 +25,7 @@ public class ConsultarCursoAlumno extends javax.swing.JFrame {
 
     ArrayList<Curso> listaCurso = Util.listaCurso;
     ArrayList<Alumno> listaAlumno = Util.listaAlumno;
+    ArrayList<Nota> listaNotas = Util.listaNotas;
     Alumno alumno = Util.getAlumno();
 
     public ConsultarCursoAlumno() {
@@ -40,36 +42,25 @@ public class ConsultarCursoAlumno extends javax.swing.JFrame {
             TableModel modelo = jTable1.getModel();
 
             int fila = 0;
-            int iteradorCursos = 0;
+            for (int i = 0; i < listaNotas.size(); i++) {
 
-            for (int i = 0; i < listaAlumno.size(); i++) {
+                if (alumno.getCarne().equals(listaNotas.get(i).getAlumno().getCarne())) {
 
-                if (alumno.getCarne().equals(listaAlumno.get(i).getCarne())) {
-                    System.out.println("Logueado ---> " + alumno.getCarne());
-                    System.out.println("La comparación ---> " + listaAlumno.get(i).getCarne());
-                    do {
+                    Curso curso = listaNotas.get(i).getCurso();
 
-                        if (listaAlumno.get(i).getCurso()[iteradorCursos] != null) {
-                            System.out.println("Arreglo: " + iteradorCursos + "-->" + listaAlumno.get(i).getCurso()[iteradorCursos].getNombre());
-                            Curso curso = listaAlumno.get(i).getCurso()[iteradorCursos];
+                    modelo.setValueAt(curso.getId(), fila, 0);
+                    modelo.setValueAt(curso.getNombre(), fila, 1);
+                    modelo.setValueAt(curso.getSeccion(), fila, 2);
+                    modelo.setValueAt(curso.getInicio(), fila, 3);
+                    modelo.setValueAt(curso.getFin(), fila, 4);
+                    modelo.setValueAt(curso.getHoraInicio(), fila, 5);
+                    modelo.setValueAt(curso.getHoraFin(), fila, 6);
+                    modelo.setValueAt(curso.getProfesor().getUsuario(), fila, 7);
+                    modelo.setValueAt(listaNotas.get(i).getNota(), fila, 8);
 
-                            modelo.setValueAt(curso.getId(), fila, 0);
-                            modelo.setValueAt(curso.getNombre(), fila, 1);
-                            modelo.setValueAt(curso.getSeccion(), fila, 2);
-                            modelo.setValueAt(curso.getInicio(), fila, 3);
-                            modelo.setValueAt(curso.getFin(), fila, 4);
-                            modelo.setValueAt(curso.getHoraInicio(), fila, 5);
-                            modelo.setValueAt(curso.getHoraFin(), fila, 6);
-                            modelo.setValueAt(curso.getProfesor(), fila, 7);
-                            modelo.setValueAt(curso.getNota(), fila, 8);
-                            fila++;
-                            iteradorCursos++;
-                        }
-
-                    } while (iteradorCursos != listaAlumno.get(i).getTamañoCursos());
+                    fila++;
 
                 }
-
             }
         } catch (Exception e) {
 
@@ -160,7 +151,7 @@ public class ConsultarCursoAlumno extends javax.swing.JFrame {
 
         jLabel1.setText("Tabla de cursos:");
 
-        jButton1.setText("Eliminar");
+        jButton1.setText("Desasignación");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -187,7 +178,7 @@ public class ConsultarCursoAlumno extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -232,66 +223,15 @@ public class ConsultarCursoAlumno extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BtnsalirActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String carne = labelUser.getText();
-        int idAlumno = buscarAlumno(carne);
-
-        if (idAlumno != -1) {
-
-            int iteradorCursos = listaAlumno.get(idAlumno).getTamañoCursos();
-
-            if (iteradorCursos != 5) {
-
-                for (int i = 0; i < listaCurso.size(); i++) {
-
-                    int fila = jTable1.getSelectedRow();
-                    String idCurso = jTable1.getValueAt(fila, 0).toString();
-
-                    if (idCurso.equals(String.valueOf(listaCurso.get(i).getId()))) {
-
-                        if (listaCurso.get(i).getIteradorAlumno() != 0) {
-
-                            Alumno alumnoActual[] = listaCurso.get(i).getAlumno();
-
-                            //Desasignación del curso al alumno
-                            int iterador = listaCurso.get(i).getIteradorAlumno();
-
-                            listaAlumno.get(idAlumno).getCurso()[iteradorCursos] = null;
-
-                            listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
-
-                            int actualizacion = iteradorCursos - 1;
-
-                            listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
-
-                            JOptionPane.showMessageDialog(null, "Curso desasignado. Puedes asignarte " + (5 - actualizacion) + " cursos más");
-
-                            //Comienzo de la deasignación del alumno al curso
-                            alumnoActual[iterador] = null;
-                            listaCurso.get(i).setAlumno(alumnoActual);
-
-                            int updateItAlumno = iterador - 1;
-                            listaCurso.get(i).setIteradorAlumno(updateItAlumno);
-
-                            JOptionPane.showMessageDialog(null, "Alumno desasignado al curso.  Aún hay " + (10 - updateItAlumno) + " cupos");
-
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No te puedes desasignar nada porque no tienes cursos");
-                        }
-                    }
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "No puedes asignarte más de 5 cursos");
-            }
-
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         descargarArchivoCSV();
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                
+        desasignacion();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -354,45 +294,32 @@ public class ConsultarCursoAlumno extends javax.swing.JFrame {
 
         try {
             String nombre = "";
-            String contenido = "id, nombre, seccion, fecha_inicio, fecha_fin, horario_inicio, horario_fin, profesor, nota";
+            String contenido = "id, nombre, seccion, fecha_inicio, fecha_fin, horario_inicio, horario_fin, profesor, nota"+ "\n";
             JFileChooser file = new JFileChooser();
             file.showSaveDialog(this);
 
             File guardar = file.getSelectedFile();
 
             if (guardar != null) {
-                FileWriter archivo = new FileWriter(guardar + ".xml");
+                FileWriter archivo = new FileWriter(guardar + ".csv");
 
                 int fila = 0;
                 int iteradorCursos = 0;
 
-                for (int i = 0; i < listaAlumno.size(); i++) {
+                for (int i = 0; i < listaNotas.size(); i++) {
 
-                    if (alumno.getCarne().equals(listaAlumno.get(i).getCarne())) {
-                        System.out.println("Logueado ---> " + alumno.getCarne());
-                        System.out.println("La comparación ---> " + listaAlumno.get(i).getCarne());
-                        do {
+                    if (alumno.getCarne().equals(listaNotas.get(i).getAlumno().getCarne())) {
+                        Curso curso = listaNotas.get(i).getCurso();
 
-                            if (listaAlumno.get(i).getCurso()[iteradorCursos] != null) {
-
-                                Curso curso = listaAlumno.get(i).getCurso()[iteradorCursos];
-
-                                contenido += curso.getId() + ","
-                                        + curso.getNombre() + ","
-                                        + curso.getSeccion() + ","
-                                        + curso.getInicio() + ","
-                                        + curso.getFin() + ","
-                                        + curso.getHoraFin() + ","
-                                        + curso.getHoraFin() + ","
-                                        + curso.getProfesor().getNombre() + ","
-                                        + curso.getNota() + "\n";
-
-                                fila++;
-                                iteradorCursos++;
-                            }
-
-                        } while (iteradorCursos != listaAlumno.get(i).getTamañoCursos());
-
+                        contenido += curso.getId() + ","
+                                + curso.getNombre() + ","
+                                + curso.getSeccion() + ","
+                                + curso.getInicio() + ","
+                                + curso.getFin() + ","
+                                + curso.getHoraFin() + ","
+                                + curso.getHoraFin() + ","
+                                + curso.getProfesor().getNombre() + ","
+                                + listaNotas.get(i).getNota() + "\n";
                     }
                 }
 
@@ -405,6 +332,90 @@ public class ConsultarCursoAlumno extends javax.swing.JFrame {
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "No se pudo guardar el archivo correctamente");
+        }
+    }
+
+    private void desasignacion() {
+        String carne = labelUser.getText();
+
+        try {
+            int idAlumno = buscarAlumno(carne);
+
+            if (idAlumno != -1) {
+
+                int iteradorCursos = listaAlumno.get(idAlumno).getTamañoCursos();
+
+                if (iteradorCursos != 0) {
+
+                    for (int i = 0; i < listaCurso.size(); i++) {
+
+                        int fila = jTable1.getSelectedRow();
+                        String idCurso = jTable1.getValueAt(fila, 0).toString();
+
+                        if (idCurso.equals(String.valueOf(listaCurso.get(i).getId()))) {
+
+                            if (listaCurso.get(i).getIteradorAlumno() != 0) {
+
+                                Alumno alumnoActual[] = listaCurso.get(i).getAlumno();
+                                Curso cursoActual[] = listaAlumno.get(idAlumno).getCurso();
+
+                                //Desasignación del curso al alumno
+                                int iterador = listaCurso.get(i).getIteradorAlumno();
+
+                                for (int j = 0; j < cursoActual.length; j++) {
+
+                                    if (cursoActual[j] != null) {
+                                        if (idCurso.equals(String.valueOf(cursoActual[j].getId()))) {
+                                            listaAlumno.get(idAlumno).getCurso()[j] = null;
+                                            listaAlumno.get(idAlumno).setCurso(listaAlumno.get(idAlumno).getCurso());
+
+                                            int actualizacion = iteradorCursos - 1;
+
+                                            listaAlumno.get(idAlumno).setTamañoCursos(actualizacion);
+
+                                            JOptionPane.showMessageDialog(null, "Curso desasignado. Puedes asignarte " + (5 - actualizacion) + " cursos más");
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                //Comienzo de la deasignación del alumno al curso
+                                for (int j = 0; j < alumnoActual.length; j++) {
+                                    if (alumnoActual[j] != null) {
+                                        if (carne.equals(alumnoActual[j].getCarne())) {
+                                            alumnoActual[j] = null;
+                                            listaCurso.get(i).setAlumno(alumnoActual);
+                                            int updateItAlumno = iterador - 1;
+                                            listaCurso.get(i).setIteradorAlumno(updateItAlumno);
+
+                                            JOptionPane.showMessageDialog(null, "Alumno desasignado al curso.  Aún hay " + (10 - updateItAlumno) + " cupos");
+
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                for (int j = 0; j < listaNotas.size(); j++) {
+                                    if (Util.getAlumno().getCarne().equals((listaNotas.get(j).getAlumno().getCarne()))
+                                            && listaCurso.get(i).getNombre().equals(listaNotas.get(j).getCurso().getNombre())) {
+                                        listaNotas.remove(j);
+                                        break;
+                                    }
+                                }
+
+                            } else {
+                                JOptionPane.showMessageDialog(null, "No te puedes desasignar nada porque no tienes cursos");
+                            }
+                        }
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No tienes cursos asignados");
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Selecciona una fila para poder desasignarte el curso");
         }
     }
 
